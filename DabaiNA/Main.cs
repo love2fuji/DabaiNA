@@ -1,4 +1,6 @@
 ﻿using DabaiNA.HWAuthentication;
+using DabaiNA.Modes;
+using DabaiNA.NAServer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +21,10 @@ namespace DabaiNA
 {
     public partial class Main : Form
     {
+        private static DevicesMode device = new DevicesMode();
+
+        internal static DevicesMode Device { get => device; set => device = value; }
+
         public Main()
         {
             InitializeComponent();
@@ -56,6 +62,60 @@ namespace DabaiNA
             if (! Authentication.Login())
                 return;
             ShowLog(Authentication.NorthAccessToken);
+            ShowLog("scope="+Authentication.Auth.Scope +
+                    "  tokenType=" + Authentication.Auth.TokenType +
+                    "  expiresIn=" + Authentication.Auth.ExpiresIn +
+                    "  accessToken="+Authentication.Auth.AccessToken);
+
+            //if (!Authentication.RefreshToken())
+            //    return;
+            //ShowLog(Authentication.NorthAccessToken);
+           
+            //查询设备激活状态
+            //string deviceStatus = DevicesManage.QueryDeviceActivationStatus(device.deviceId);
+            //ShowLog(deviceStatus);
+
+            //string deleteResult = DevicesManage.DeleteDirectlyConnectedDevice(device.deviceId);
+            //ShowLog(deleteResult);
+            //string lContent = Authentication.GetNorthAPIContent("sec/v1.1.0/login", "POST", "2");
+
+        }
+
+        private void btnRegisterDevice_Click(object sender, EventArgs e)
+        {
+            //注册直连设备
+            string nodeId = "SH_Door_201805112145";
+            string registerResult = DevicesManage.RegisterDirectlyConnectedDevice(nodeId);
+            device = Newtonsoft.Json.JsonConvert.DeserializeObject<DevicesMode>(registerResult);
+            ShowLog("注册成功："+registerResult);
+            Console.WriteLine("注册成功，设备ID："+device.deviceId);
+        }
+
+        private void btnQueryDeviceStatus_Click(object sender, EventArgs e)
+        {
+            //查询设备激活状态
+            string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
+            string deviceStatus = DevicesManage.QueryDeviceActivationStatus(deviceId);
+
+            ShowLog(deviceStatus);
+        }
+
+        private void btnDeleteDevice_Click(object sender, EventArgs e)
+        {
+            //删除设备
+            string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
+            string deleteResult = DevicesManage.DeleteDirectlyConnectedDevice(deviceId);
+            ShowLog(deleteResult);
+        }
+
+        private void btnModifyDeviceInfo_Click(object sender, EventArgs e)
+        {
+            //修改设备信息
+            //string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
+            ModifyDeviceInfoMode modifyDeviceInfoMode = new ModifyDeviceInfoMode();
+
+            string deleteResult = DevicesManage.ModifyDeviceInfo(device.deviceId, modifyDeviceInfoMode);
+            ShowLog(deleteResult);
         }
     }
 }

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.显示ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,10 +42,10 @@
             this.tpgDepart = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnBaseDataExport2Excel = new System.Windows.Forms.Button();
-            this.btnDataExport2Excel = new System.Windows.Forms.Button();
-            this.btnImportRegion = new System.Windows.Forms.Button();
-            this.btnOpenCSV = new System.Windows.Forms.Button();
+            this.btnRegisterDevice = new System.Windows.Forms.Button();
+            this.btnQueryDeviceStatus = new System.Windows.Forms.Button();
+            this.btnModifyDeviceInfo = new System.Windows.Forms.Button();
+            this.btnDeleteDevice = new System.Windows.Forms.Button();
             this.btnImportDepart = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowDepart)).BeginInit();
@@ -62,7 +61,6 @@
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "短信服务";
             this.notifyIcon1.Visible = true;
             // 
@@ -73,18 +71,18 @@
             this.显示ToolStripMenuItem1,
             this.退出ToolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(147, 84);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 76);
             // 
             // 显示ToolStripMenuItem1
             // 
             this.显示ToolStripMenuItem1.Name = "显示ToolStripMenuItem1";
-            this.显示ToolStripMenuItem1.Size = new System.Drawing.Size(146, 40);
+            this.显示ToolStripMenuItem1.Size = new System.Drawing.Size(136, 36);
             this.显示ToolStripMenuItem1.Text = "显示";
             // 
             // 退出ToolStripMenuItem1
             // 
             this.退出ToolStripMenuItem1.Name = "退出ToolStripMenuItem1";
-            this.退出ToolStripMenuItem1.Size = new System.Drawing.Size(146, 40);
+            this.退出ToolStripMenuItem1.Size = new System.Drawing.Size(136, 36);
             this.退出ToolStripMenuItem1.Text = "退出";
             // 
             // dgvShowDepart
@@ -98,7 +96,7 @@
             this.dgvShowDepart.Name = "dgvShowDepart";
             this.dgvShowDepart.RowHeadersWidth = 10;
             this.dgvShowDepart.RowTemplate.Height = 23;
-            this.dgvShowDepart.Size = new System.Drawing.Size(1737, 723);
+            this.dgvShowDepart.Size = new System.Drawing.Size(1681, 949);
             this.dgvShowDepart.TabIndex = 0;
             // 
             // dgvShowRegion
@@ -114,7 +112,7 @@
             this.dgvShowRegion.Name = "dgvShowRegion";
             this.dgvShowRegion.RowHeadersWidth = 50;
             this.dgvShowRegion.RowTemplate.Height = 23;
-            this.dgvShowRegion.Size = new System.Drawing.Size(1737, 723);
+            this.dgvShowRegion.Size = new System.Drawing.Size(1681, 949);
             this.dgvShowRegion.TabIndex = 0;
             // 
             // tabPage1
@@ -147,7 +145,7 @@
             this.tpgRegion.Margin = new System.Windows.Forms.Padding(4);
             this.tpgRegion.Name = "tpgRegion";
             this.tpgRegion.Padding = new System.Windows.Forms.Padding(4);
-            this.tpgRegion.Size = new System.Drawing.Size(1745, 731);
+            this.tpgRegion.Size = new System.Drawing.Size(1689, 957);
             this.tpgRegion.TabIndex = 1;
             this.tpgRegion.Text = "区域/部门基础数据";
             this.tpgRegion.UseVisualStyleBackColor = true;
@@ -172,7 +170,7 @@
             this.tpgDepart.Margin = new System.Windows.Forms.Padding(4);
             this.tpgDepart.Name = "tpgDepart";
             this.tpgDepart.Padding = new System.Windows.Forms.Padding(4);
-            this.tpgDepart.Size = new System.Drawing.Size(1745, 731);
+            this.tpgDepart.Size = new System.Drawing.Size(1689, 957);
             this.tpgDepart.TabIndex = 2;
             this.tpgDepart.Text = " ";
             this.tpgDepart.UseVisualStyleBackColor = true;
@@ -192,10 +190,10 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnBaseDataExport2Excel);
-            this.groupBox1.Controls.Add(this.btnDataExport2Excel);
-            this.groupBox1.Controls.Add(this.btnImportRegion);
-            this.groupBox1.Controls.Add(this.btnOpenCSV);
+            this.groupBox1.Controls.Add(this.btnRegisterDevice);
+            this.groupBox1.Controls.Add(this.btnQueryDeviceStatus);
+            this.groupBox1.Controls.Add(this.btnModifyDeviceInfo);
+            this.groupBox1.Controls.Add(this.btnDeleteDevice);
             this.groupBox1.Controls.Add(this.btnImportDepart);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -207,48 +205,52 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "选项";
             // 
-            // btnBaseDataExport2Excel
+            // btnRegisterDevice
             // 
-            this.btnBaseDataExport2Excel.BackColor = System.Drawing.SystemColors.Control;
-            this.btnBaseDataExport2Excel.Location = new System.Drawing.Point(48, 30);
-            this.btnBaseDataExport2Excel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBaseDataExport2Excel.Name = "btnBaseDataExport2Excel";
-            this.btnBaseDataExport2Excel.Size = new System.Drawing.Size(135, 62);
-            this.btnBaseDataExport2Excel.TabIndex = 19;
-            this.btnBaseDataExport2Excel.Text = "导出基础数据";
-            this.btnBaseDataExport2Excel.UseVisualStyleBackColor = false;
+            this.btnRegisterDevice.BackColor = System.Drawing.SystemColors.Control;
+            this.btnRegisterDevice.Location = new System.Drawing.Point(104, 30);
+            this.btnRegisterDevice.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRegisterDevice.Name = "btnRegisterDevice";
+            this.btnRegisterDevice.Size = new System.Drawing.Size(99, 62);
+            this.btnRegisterDevice.TabIndex = 19;
+            this.btnRegisterDevice.Text = "注册设备";
+            this.btnRegisterDevice.UseVisualStyleBackColor = false;
+            this.btnRegisterDevice.Click += new System.EventHandler(this.btnRegisterDevice_Click);
             // 
-            // btnDataExport2Excel
+            // btnQueryDeviceStatus
             // 
-            this.btnDataExport2Excel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnDataExport2Excel.Location = new System.Drawing.Point(214, 30);
-            this.btnDataExport2Excel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDataExport2Excel.Name = "btnDataExport2Excel";
-            this.btnDataExport2Excel.Size = new System.Drawing.Size(132, 62);
-            this.btnDataExport2Excel.TabIndex = 17;
-            this.btnDataExport2Excel.Text = "导出原来配置";
-            this.btnDataExport2Excel.UseVisualStyleBackColor = false;
+            this.btnQueryDeviceStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnQueryDeviceStatus.Location = new System.Drawing.Point(316, 29);
+            this.btnQueryDeviceStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.btnQueryDeviceStatus.Name = "btnQueryDeviceStatus";
+            this.btnQueryDeviceStatus.Size = new System.Drawing.Size(132, 62);
+            this.btnQueryDeviceStatus.TabIndex = 17;
+            this.btnQueryDeviceStatus.Text = "查询设备激活状态";
+            this.btnQueryDeviceStatus.UseVisualStyleBackColor = false;
+            this.btnQueryDeviceStatus.Click += new System.EventHandler(this.btnQueryDeviceStatus_Click);
             // 
-            // btnImportRegion
+            // btnModifyDeviceInfo
             // 
-            this.btnImportRegion.BackColor = System.Drawing.SystemColors.Info;
-            this.btnImportRegion.Location = new System.Drawing.Point(726, 30);
-            this.btnImportRegion.Margin = new System.Windows.Forms.Padding(4);
-            this.btnImportRegion.Name = "btnImportRegion";
-            this.btnImportRegion.Size = new System.Drawing.Size(170, 62);
-            this.btnImportRegion.TabIndex = 16;
-            this.btnImportRegion.Text = "导入区域基础数据";
-            this.btnImportRegion.UseVisualStyleBackColor = false;
+            this.btnModifyDeviceInfo.BackColor = System.Drawing.SystemColors.Info;
+            this.btnModifyDeviceInfo.Location = new System.Drawing.Point(726, 30);
+            this.btnModifyDeviceInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnModifyDeviceInfo.Name = "btnModifyDeviceInfo";
+            this.btnModifyDeviceInfo.Size = new System.Drawing.Size(170, 62);
+            this.btnModifyDeviceInfo.TabIndex = 16;
+            this.btnModifyDeviceInfo.Text = "修改设备信息";
+            this.btnModifyDeviceInfo.UseVisualStyleBackColor = false;
+            this.btnModifyDeviceInfo.Click += new System.EventHandler(this.btnModifyDeviceInfo_Click);
             // 
-            // btnOpenCSV
+            // btnDeleteDevice
             // 
-            this.btnOpenCSV.Location = new System.Drawing.Point(488, 30);
-            this.btnOpenCSV.Margin = new System.Windows.Forms.Padding(4);
-            this.btnOpenCSV.Name = "btnOpenCSV";
-            this.btnOpenCSV.Size = new System.Drawing.Size(164, 62);
-            this.btnOpenCSV.TabIndex = 16;
-            this.btnOpenCSV.Text = "查找文件（.CSV）";
-            this.btnOpenCSV.UseVisualStyleBackColor = true;
+            this.btnDeleteDevice.Location = new System.Drawing.Point(509, 29);
+            this.btnDeleteDevice.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDeleteDevice.Name = "btnDeleteDevice";
+            this.btnDeleteDevice.Size = new System.Drawing.Size(98, 62);
+            this.btnDeleteDevice.TabIndex = 16;
+            this.btnDeleteDevice.Text = "删除设备";
+            this.btnDeleteDevice.UseVisualStyleBackColor = true;
+            this.btnDeleteDevice.Click += new System.EventHandler(this.btnDeleteDevice_Click);
             // 
             // btnImportDepart
             // 
@@ -298,10 +300,10 @@
         private System.Windows.Forms.TabPage tpgDepart;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnBaseDataExport2Excel;
-        private System.Windows.Forms.Button btnDataExport2Excel;
-        private System.Windows.Forms.Button btnImportRegion;
-        private System.Windows.Forms.Button btnOpenCSV;
+        private System.Windows.Forms.Button btnRegisterDevice;
+        private System.Windows.Forms.Button btnQueryDeviceStatus;
+        private System.Windows.Forms.Button btnModifyDeviceInfo;
+        private System.Windows.Forms.Button btnDeleteDevice;
         private System.Windows.Forms.Button btnImportDepart;
     }
 }
