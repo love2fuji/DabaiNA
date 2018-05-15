@@ -17,6 +17,7 @@ namespace DabaiNA.HWAuthentication
         internal static string AppSecret = "NUfZEUqZ7JlGfqcHXdpwBTOqA_ga";
         internal static string NorthAccessToken = string.Empty;
         public static AuthorizationMode Auth = new AuthorizationMode();
+        public static Int32  httpStatusCode = 20;
 
         public static bool Login()
         {
@@ -96,6 +97,7 @@ namespace DabaiNA.HWAuthentication
             try
             {
                 HttpWebResponse lResponse = (HttpWebResponse)lRequest.GetResponse();
+                httpStatusCode = (int)lResponse.StatusCode;
                 StreamReader sr = new StreamReader(lResponse.GetResponseStream(), Encoding.Default);
                 lContent = sr.ReadToEnd();
                 lResponse.Close();
@@ -103,7 +105,7 @@ namespace DabaiNA.HWAuthentication
             catch (Exception e)
             {
                 Console.WriteLine(value: " ----错误:" + e.Message);
-                MessageBox.Show(e.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("请求响应的状态码：" + httpStatusCode +"  详细："+e.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return lContent;
@@ -150,6 +152,7 @@ namespace DabaiNA.HWAuthentication
             try
             {
                 HttpWebResponse lResponse = (HttpWebResponse)lRequest.GetResponse();
+                httpStatusCode = (int)lResponse.StatusCode;
                 StreamReader sr = new StreamReader(lResponse.GetResponseStream(), Encoding.Default);
                 lContent = sr.ReadToEnd();
                 lResponse.Close();
@@ -157,7 +160,7 @@ namespace DabaiNA.HWAuthentication
             catch (Exception e)
             {
                 Console.WriteLine(value: " ----错误:" + e.Message);
-                MessageBox.Show(e.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("请求响应的状态码：" + httpStatusCode + "  详细：" + e.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return lContent;

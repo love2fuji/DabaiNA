@@ -1,6 +1,7 @@
 ﻿using DabaiNA.HWAuthentication;
 using DabaiNA.Modes;
 using DabaiNA.NAServer;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -88,6 +89,8 @@ namespace DabaiNA
             string registerResult = DevicesManage.RegisterDirectlyConnectedDevice(nodeId);
             device = Newtonsoft.Json.JsonConvert.DeserializeObject<DevicesMode>(registerResult);
             ShowLog("注册成功："+registerResult);
+            ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
+
             Console.WriteLine("注册成功，设备ID："+device.deviceId);
         }
 
@@ -98,6 +101,7 @@ namespace DabaiNA
             string deviceStatus = DevicesManage.QueryDeviceActivationStatus(deviceId);
 
             ShowLog(deviceStatus);
+            ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
         }
 
         private void btnDeleteDevice_Click(object sender, EventArgs e)
@@ -106,16 +110,38 @@ namespace DabaiNA
             string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
             string deleteResult = DevicesManage.DeleteDirectlyConnectedDevice(deviceId);
             ShowLog(deleteResult);
+            ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
         }
 
         private void btnModifyDeviceInfo_Click(object sender, EventArgs e)
         {
+
             //修改设备信息
             //string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
-            ModifyDeviceInfoMode modifyDeviceInfoMode = new ModifyDeviceInfoMode();
+            //ModifyDeviceInfoMode modifyDeviceInfoMode = new ModifyDeviceInfoMode();
 
-            string deleteResult = DevicesManage.ModifyDeviceInfo(device.deviceId, modifyDeviceInfoMode);
-            ShowLog(deleteResult);
+            //string deleteResult = DevicesManage.ModifyDeviceInfo(device.deviceId, modifyDeviceInfoMode);
+            //ShowLog(deleteResult);
+            //ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
+            long pageNo = 0;
+            long pageSize = 10;
+            string QueryResult = DataCollection.QueryDevice(pageNo, pageSize);
+            ShowLog("QueryResult:" + QueryResult);
+
+            JObject jObj = JObject.Parse(QueryResult);
+            QueryDevicesMode queryDevices = new QueryDevicesMode();
+            queryDevices=Newtonsoft.Json.JsonConvert.DeserializeObject<QueryDevicesMode>(QueryResult);
+
+            
+
+            ShowLog("queryDevices jObj:" + jObj.ToString());
+            //ShowLog("queryDevices devices:" + queryDevices.devices.First().deviceId);
+            foreach (var item in queryDevices.devices)
+            {
+                ShowLog("queryDevices devicesID:" + item.deviceId);
+            }
+            //ShowLog("queryDevices:" + queryDevices.totalCount);
+            //ShowLog("queryDevices:" + queryDevices.totalCount);
         }
     }
 }
