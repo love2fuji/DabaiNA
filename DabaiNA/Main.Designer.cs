@@ -46,7 +46,7 @@
             this.btnQueryDeviceStatus = new System.Windows.Forms.Button();
             this.btnModifyDeviceInfo = new System.Windows.Forms.Button();
             this.btnDeleteDevice = new System.Windows.Forms.Button();
-            this.btnImportDepart = new System.Windows.Forms.Button();
+            this.btnGetDevices = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowDepart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowRegion)).BeginInit();
@@ -71,18 +71,18 @@
             this.显示ToolStripMenuItem1,
             this.退出ToolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 76);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(117, 60);
             // 
             // 显示ToolStripMenuItem1
             // 
             this.显示ToolStripMenuItem1.Name = "显示ToolStripMenuItem1";
-            this.显示ToolStripMenuItem1.Size = new System.Drawing.Size(136, 36);
+            this.显示ToolStripMenuItem1.Size = new System.Drawing.Size(116, 28);
             this.显示ToolStripMenuItem1.Text = "显示";
             // 
             // 退出ToolStripMenuItem1
             // 
             this.退出ToolStripMenuItem1.Name = "退出ToolStripMenuItem1";
-            this.退出ToolStripMenuItem1.Size = new System.Drawing.Size(136, 36);
+            this.退出ToolStripMenuItem1.Size = new System.Drawing.Size(116, 28);
             this.退出ToolStripMenuItem1.Text = "退出";
             // 
             // dgvShowDepart
@@ -194,7 +194,7 @@
             this.groupBox1.Controls.Add(this.btnQueryDeviceStatus);
             this.groupBox1.Controls.Add(this.btnModifyDeviceInfo);
             this.groupBox1.Controls.Add(this.btnDeleteDevice);
-            this.groupBox1.Controls.Add(this.btnImportDepart);
+            this.groupBox1.Controls.Add(this.btnGetDevices);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -252,16 +252,17 @@
             this.btnDeleteDevice.UseVisualStyleBackColor = true;
             this.btnDeleteDevice.Click += new System.EventHandler(this.btnDeleteDevice_Click);
             // 
-            // btnImportDepart
+            // btnGetDevices
             // 
-            this.btnImportDepart.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnImportDepart.Location = new System.Drawing.Point(956, 30);
-            this.btnImportDepart.Margin = new System.Windows.Forms.Padding(4);
-            this.btnImportDepart.Name = "btnImportDepart";
-            this.btnImportDepart.Size = new System.Drawing.Size(170, 62);
-            this.btnImportDepart.TabIndex = 16;
-            this.btnImportDepart.Text = "导入部门基础数据";
-            this.btnImportDepart.UseVisualStyleBackColor = false;
+            this.btnGetDevices.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnGetDevices.Location = new System.Drawing.Point(956, 30);
+            this.btnGetDevices.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGetDevices.Name = "btnGetDevices";
+            this.btnGetDevices.Size = new System.Drawing.Size(170, 62);
+            this.btnGetDevices.TabIndex = 16;
+            this.btnGetDevices.Text = "查询接入设备";
+            this.btnGetDevices.UseVisualStyleBackColor = false;
+            this.btnGetDevices.Click += new System.EventHandler(this.btnGetDevices_Click);
             // 
             // Main
             // 
@@ -304,7 +305,7 @@
         private System.Windows.Forms.Button btnQueryDeviceStatus;
         private System.Windows.Forms.Button btnModifyDeviceInfo;
         private System.Windows.Forms.Button btnDeleteDevice;
-        private System.Windows.Forms.Button btnImportDepart;
+        private System.Windows.Forms.Button btnGetDevices;
     }
 }
 

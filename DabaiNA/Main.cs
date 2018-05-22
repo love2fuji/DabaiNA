@@ -72,13 +72,6 @@ namespace DabaiNA
             //    return;
             //ShowLog(Authentication.NorthAccessToken);
            
-            //查询设备激活状态
-            //string deviceStatus = DevicesManage.QueryDeviceActivationStatus(device.deviceId);
-            //ShowLog(deviceStatus);
-
-            //string deleteResult = DevicesManage.DeleteDirectlyConnectedDevice(device.deviceId);
-            //ShowLog(deleteResult);
-            //string lContent = Authentication.GetNorthAPIContent("sec/v1.1.0/login", "POST", "2");
 
         }
 
@@ -123,25 +116,49 @@ namespace DabaiNA
             //string deleteResult = DevicesManage.ModifyDeviceInfo(device.deviceId, modifyDeviceInfoMode);
             //ShowLog(deleteResult);
             //ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
+
+            //ShowLog("queryDevices:" + queryDevices.totalCount);
+            //ShowLog("queryDevices:" + queryDevices.totalCount);
+
+            string deviceId = "a823fc09-e119-4caa-af1b-f7f3f0eb4593";
+            string startTime = "20180521T134000Z";
+            string endTime = "20180522T224044Z";
+            string QueryData=DataCollection.QueryDeviceData(deviceId);
+            ShowLog("queryDevices Data:" + QueryData);
+
+            string QueryData2 = DataCollection.QueryDeviceHistoryData(deviceId, deviceId, startTime, endTime);
+            ShowLog("queryDevices Data:" + QueryData2);
+
+
+        }
+
+        private void btnGetDevices_Click(object sender, EventArgs e)
+        {
             long pageNo = 0;
             long pageSize = 10;
             string QueryResult = DataCollection.QueryDevice(pageNo, pageSize);
-            ShowLog("QueryResult:" + QueryResult);
 
             JObject jObj = JObject.Parse(QueryResult);
             QueryDevicesMode queryDevices = new QueryDevicesMode();
-            queryDevices=Newtonsoft.Json.JsonConvert.DeserializeObject<QueryDevicesMode>(QueryResult);
+            queryDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryDevicesMode>(QueryResult);
 
-            
 
             ShowLog("queryDevices jObj:" + jObj.ToString());
             //ShowLog("queryDevices devices:" + queryDevices.devices.First().deviceId);
+            ShowLog("queryDevices totalCount:" + queryDevices.totalCount);
             foreach (var item in queryDevices.devices)
             {
+                ShowLog("---------------------------------------");
                 ShowLog("queryDevices devicesID:" + item.deviceId);
+                ShowLog("queryDevices gatewayId:" + item.gatewayId);
+                ShowLog("queryDevices nodeType:" + item.nodeType);
+                ShowLog("queryDevices createTime:" + item.createTime);
+                ShowLog("queryDevices lastModifiedTime:" + item.lastModifiedTime);
+                ShowLog("queryDevices nodeId:" + item.deviceInfo.nodeId);
+                ShowLog("queryDevices Name:" + item.deviceInfo.name);
+                ShowLog("queryDevices ProtocolType:" + item.deviceInfo.protocolType);
+                ShowLog("queryDevices Status:" + item.deviceInfo.status);
             }
-            //ShowLog("queryDevices:" + queryDevices.totalCount);
-            //ShowLog("queryDevices:" + queryDevices.totalCount);
         }
     }
 }

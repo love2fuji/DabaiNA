@@ -1,4 +1,5 @@
-﻿using DabaiNA.Modes;
+﻿using DabaiNA.Common;
+using DabaiNA.Modes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,8 +14,8 @@ namespace DabaiNA.HWAuthentication
 {
     class Authentication
     {
-        internal static string AppID = "I3316SD1my0fLyPIWp0fbukhmAMa";
-        internal static string AppSecret = "NUfZEUqZ7JlGfqcHXdpwBTOqA_ga";
+        internal static string AppID = Config.GetValue("appID");
+        internal static string AppSecret = Config.GetValue("appSecret");
         internal static string NorthAccessToken = string.Empty;
         public static AuthorizationMode Auth = new AuthorizationMode();
         public static Int32  httpStatusCode = 20;

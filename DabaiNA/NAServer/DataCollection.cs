@@ -29,11 +29,18 @@ namespace DabaiNA.NAServer
             return result;
         }
 
-        
+
         public static string QueryDeviceHistoryData(string deviceId, string gatewayId)
         {
-            string result = Authentication.GetNorthAPIContent($"app/data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
-                $"&gatewayId ={gatewayId}", "GET");
+            string result = Authentication.GetNorthAPIContent($"data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
+                $"&gatewayId={gatewayId}", "GET");
+            return result;
+        }
+
+        public static string QueryDeviceHistoryData(string deviceId, string gatewayId, string startTime, string endTime)
+        {
+            string result = Authentication.GetNorthAPIContent($"data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
+                $"&gatewayId={gatewayId}&startTime={startTime}&endTime={endTime}", "GET");
             return result;
         }
 
