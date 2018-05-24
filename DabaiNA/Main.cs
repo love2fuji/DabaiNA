@@ -1,4 +1,5 @@
-﻿using DabaiNA.HWAuthentication;
+﻿using DabaiNA.DAL;
+using DabaiNA.HWAuthentication;
 using DabaiNA.Modes;
 using DabaiNA.NAServer;
 using Newtonsoft.Json.Linq;
@@ -62,7 +63,6 @@ namespace DabaiNA
             // 调用封装北向接口的功能 API
             if (! Authentication.Login())
                 return;
-            ShowLog(Authentication.NorthAccessToken);
             ShowLog("scope="+Authentication.Auth.Scope +
                     "  tokenType=" + Authentication.Auth.TokenType +
                     "  expiresIn=" + Authentication.Auth.ExpiresIn +
@@ -90,7 +90,7 @@ namespace DabaiNA
         private void btnQueryDeviceStatus_Click(object sender, EventArgs e)
         {
             //查询设备激活状态
-            string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
+            string deviceId = "a823fc09-e119-4caa-af1b-f7f3f0eb4593";
             string deviceStatus = DevicesManage.QueryDeviceActivationStatus(deviceId);
 
             ShowLog(deviceStatus);
@@ -120,15 +120,77 @@ namespace DabaiNA
             //ShowLog("queryDevices:" + queryDevices.totalCount);
             //ShowLog("queryDevices:" + queryDevices.totalCount);
 
+            //查询一个设备历史数据
             string deviceId = "a823fc09-e119-4caa-af1b-f7f3f0eb4593";
             string startTime = "20180521T134000Z";
             string endTime = "20180522T224044Z";
-            string QueryData=DataCollection.QueryDeviceData(deviceId);
+
+            string buildID = "10002000";
+
+            string QueryData = DataCollection.QueryDeviceHistoryData(deviceId, deviceId, startTime);
             ShowLog("queryDevices Data:" + QueryData);
 
-            string QueryData2 = DataCollection.QueryDeviceHistoryData(deviceId, deviceId, startTime, endTime);
-            ShowLog("queryDevices Data:" + QueryData2);
+            JObject jsonObj = JObject.Parse(QueryData);
+            ////获取json元素
+            //IList<string> keys = jsonObj.Properties().Select(p => p.Name).ToList();
+            //foreach (var item in keys )
+            //{
+            //    ShowLog("queryDevices Data: key->" + item);
+            //}
+            //ShowLog("queryDevices Data:" + jsonObj.ToString());
 
+            int reslut = DataCollectionDAL.SaveData(buildID, jsonObj);
+            ShowLog("--------------------数据 存入数据库成功，总共：" + reslut+"条");
+
+            Dictionary<string, string> dataDic = new Dictionary<string, string>();
+
+            JArray jArray = JArray.Parse(jsonObj["deviceDataHistoryDTOs"].ToString());
+
+            for (int i = 0; i < jArray.Count; i++)  //遍历JArray  
+            {
+                //转化为JObject
+                JObject itemObj = JObject.Parse(jArray[i].ToString());
+                ShowLog("---------------------------------------");
+                string deviceId2 = itemObj["deviceId"].ToString();
+                string gatewayId = itemObj["gatewayId"].ToString();
+                string totalPower = itemObj["data"]["totalPower"].ToString();
+                string batteryVoltage = itemObj["data"]["batteryVoltage"].ToString();
+                string color = itemObj["data"]["color"].ToString();
+                string switchStatus = itemObj["data"]["switchStatus"].ToString();
+                string timestamp = itemObj["timestamp"].ToString();
+                ShowLog("queryDevices Data deviceId:" + deviceId2);
+                //ShowLog("queryDevices Data gatewayId:" + gatewayId);
+                //ShowLog("queryDevices Data totalPower:" + totalPower);
+                //ShowLog("queryDevices Data batteryVoltage:" + batteryVoltage);
+                //ShowLog("queryDevices Data color:" + color);
+                //ShowLog("queryDevices Data switchStatus:" + switchStatus);
+                ShowLog("queryDevices Data timestamp:" + timestamp);
+                JObject itemObj2 = JObject.Parse(itemObj["data"].ToString());
+                IList<string> datakeys2 = itemObj2.Properties().Select(p => p.Name).ToList();
+                IList<string> dataValues2 = itemObj2.Properties().Select(p => p.Value.ToString()).ToList();
+                for (int j=0;j< datakeys2.Count;j++)
+                {
+                    ShowLog("queryDevices Data: DataKey->" + datakeys2[j] + "  DataValue->" + dataValues2[j]);
+                    //dataDic.Add(datakeys2[j], dataValues2[j]);
+                }
+
+                foreach (var item in dataDic)
+                {
+                    ShowLog("queryDevices Data: DataKey->" + item.Key + "  DataValue->"+ item.Value);
+
+                }
+
+                //foreach (var item in dataValues2)
+                //{
+                //    ShowLog("queryDevices Data: DataValue->" + item);
+                //}
+            }
+
+                ShowLog("queryDevices Data:" + jsonObj["deviceDataHistoryDTOs"][0]["data"]);
+            //ShowLog("queryDevices Data:" + jObj);
+            ShowLog("queryDevices Data:" + jsonObj["gatewayId"]);
+            //ShowLog("queryDevices Data:" + jObj["deviceDataHistoryDTOs"]["data"]);
+            //ShowLog("queryDevices Data--totalPower:" + jObj["deviceDataHistoryDTOs"]["data"]["totalPower"]);
 
         }
 
@@ -140,15 +202,15 @@ namespace DabaiNA
 
             JObject jObj = JObject.Parse(QueryResult);
             QueryDevicesMode queryDevices = new QueryDevicesMode();
+            string buildID = "10002000";
             queryDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryDevicesMode>(QueryResult);
-
+            ShowLog("queryDevices buildID:" + queryDevices.buildID);
 
             ShowLog("queryDevices jObj:" + jObj.ToString());
-            //ShowLog("queryDevices devices:" + queryDevices.devices.First().deviceId);
-            ShowLog("queryDevices totalCount:" + queryDevices.totalCount);
             foreach (var item in queryDevices.devices)
             {
                 ShowLog("---------------------------------------");
+                ShowLog("queryDevices buildID:" + queryDevices.buildID);
                 ShowLog("queryDevices devicesID:" + item.deviceId);
                 ShowLog("queryDevices gatewayId:" + item.gatewayId);
                 ShowLog("queryDevices nodeType:" + item.nodeType);
@@ -158,7 +220,11 @@ namespace DabaiNA
                 ShowLog("queryDevices Name:" + item.deviceInfo.name);
                 ShowLog("queryDevices ProtocolType:" + item.deviceInfo.protocolType);
                 ShowLog("queryDevices Status:" + item.deviceInfo.status);
+
+
             }
+            int reslut = DataCollectionDAL.SaveDevices(buildID, queryDevices);
+            ShowLog("--------------------设备 存入数据库：" + reslut);
         }
     }
 }

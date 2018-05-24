@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Config.cs" />
+    <Compile Include="Common\SQLHelper.cs" />
+    <Compile Include="DAL\DataCollectionDAL.cs" />
+    <Compile Include="DAL\DeviceManageDAL.cs" />
     <Compile Include="Modes\DeviceInfoMode.cs" />
     <Compile Include="Modes\DeviceServiceMode.cs" />
     <Compile Include="Modes\DevicesMode.cs" />
@@ -101,7 +104,9 @@
     <None Include="resource\watermeter_profile.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

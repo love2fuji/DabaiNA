@@ -16,7 +16,6 @@ namespace DabaiNA.HWAuthentication
     {
         internal static string AppID = Config.GetValue("appID");
         internal static string AppSecret = Config.GetValue("appSecret");
-        internal static string NorthAccessToken = string.Empty;
         public static AuthorizationMode Auth = new AuthorizationMode();
         public static Int32  httpStatusCode = 20;
 
@@ -31,9 +30,8 @@ namespace DabaiNA.HWAuthentication
             
             Auth = Newtonsoft.Json.JsonConvert.DeserializeObject<AuthorizationMode>(lContent);
             // 这里假设在 NorthAccessToken 中。
-            NorthAccessToken = Auth.AccessToken;
             Console.WriteLine(value: " -------response:" + lContent);
-            Console.WriteLine(value: " -------NorthAccessToken:" + NorthAccessToken);
+            Console.WriteLine(value: " -------NorthAccessToken:" + Auth.AccessToken);
 
             return true;
         }
@@ -53,13 +51,8 @@ namespace DabaiNA.HWAuthentication
             string RefreshString = GetNorthAPIContent("sec/v1.1.0/refreshToken", "POST", json);
             if (string.IsNullOrEmpty(RefreshString))
                 return false;
-
-            // lContent 里包含了 Json 格式的 accessToken 等信息，可获取用于后续操作。最好存在全局静态变量中。
-            // 这里假设在 NorthAccessToken 中。
-            
             Auth = Newtonsoft.Json.JsonConvert.DeserializeObject<AuthorizationMode>(RefreshString);
-            NorthAccessToken = Auth.AccessToken;
-            Console.WriteLine(value: " refresh_Response:" + NorthAccessToken);
+            Console.WriteLine(value: " refresh_Response:" +  Auth.AccessToken);
 
             return true;
         }
@@ -84,7 +77,7 @@ namespace DabaiNA.HWAuthentication
             HttpWebRequest lRequest = WebRequest.Create(aURL) as HttpWebRequest;
 
             lRequest.Headers.Add("app_key", AppID);
-            lRequest.Headers.Add("Authorization", $"Bearer {NorthAccessToken}");
+            lRequest.Headers.Add("Authorization", $"Bearer {Auth.AccessToken}");
             lRequest.KeepAlive = true;
             lRequest.Method = aMethod;
 
@@ -128,7 +121,7 @@ namespace DabaiNA.HWAuthentication
             HttpWebRequest lRequest = WebRequest.Create(aURL) as HttpWebRequest;
 
             lRequest.Headers.Add("app_key", AppID);
-            lRequest.Headers.Add("Authorization", $"Bearer {NorthAccessToken}");
+            lRequest.Headers.Add("Authorization", $"Bearer {Auth.AccessToken}");
             lRequest.KeepAlive = true;
             lRequest.Method = aMethod;
 
@@ -160,8 +153,8 @@ namespace DabaiNA.HWAuthentication
             }
             catch (Exception e)
             {
-                Console.WriteLine(value: " ----错误:" + e.Message);
-                MessageBox.Show("请求响应的状态码：" + httpStatusCode + "  详细：" + e.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("请求响应的状态码：" + httpStatusCode + "  详细：" + e.Message);
+                
             }
 
             return lContent;

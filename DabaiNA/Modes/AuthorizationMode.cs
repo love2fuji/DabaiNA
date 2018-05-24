@@ -10,7 +10,6 @@ namespace DabaiNA.Modes
     {
 
         public string AppId { get; set; }
-        public string Secret { get; set; }
 
         public string Scope { get; set; }
         public string TokenType { get; set; }
