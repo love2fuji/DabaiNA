@@ -1,5 +1,8 @@
-﻿using DabaiNA.HWAuthentication;
+﻿using DabaiNA.Common;
+using DabaiNA.DAL;
+using DabaiNA.HWAuthentication;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,13 +14,50 @@ namespace DabaiNA.NAServer
 {
     class DataCollection
     {
-        public static T DeserializeJsonToObject<T>(string json) where T : class
+
+        public static void CollectFromAPI()
         {
-            JsonSerializer serializer = new JsonSerializer();
-            StringReader sr = new StringReader(json);
-            object o = serializer.Deserialize(new JsonTextReader(sr), typeof(T));
-            T t = o as T;
-            return t;
+
+            System.Threading.Thread.Sleep(30000);
+            while (Runtime.m_IsRunning)
+            {
+                try
+                {
+                    List<string> devicesList = DataCollectionDAL.GetDevices();
+
+                    foreach (string item in devicesList)
+                    {
+                        LogHelper.log.Info("查询到 设备ID ：" + item);
+                        Runtime.ShowLog("-------- 查询到 设备ID ：" + item);
+                        string startTime = DataCollectionDAL.GetDeviceUpdataLastTime(item);
+                        LogHelper.log.Info("该设备 最后更新数据的时间为：" + startTime);
+                        Runtime.ShowLog("-------- 该设备 最后更新数据的时间为：" + startTime);
+
+                        string queryData = DataCollection.QueryDeviceHistoryData(item, item, startTime);
+                        JObject jsonObj = JObject.Parse(queryData);
+                        Runtime.ShowLog("queryDevices Data:" + jsonObj.ToString());
+                        int totalData = Convert.ToInt32(jsonObj["totalCount"].ToString());
+                        //如果查询到设备数据，则存入数据库中
+                        if (totalData > 0)
+                        {
+                            int reslut = DataCollectionDAL.SaveData(jsonObj);
+                            LogHelper.log.Info("数据 存入数据库成功，总共：" + +reslut + "条");
+                            Runtime.ShowLog("-------- 数据 存入数据库成功，总共：" + reslut + "条");
+                        }
+                    }
+
+                    System.Threading.Thread.Sleep(20000);
+                    continue;
+                }
+                catch (Exception ex)
+                {
+                    Runtime.ShowLog("！！！ 采集数据 失败！！！  详细：" + ex.Message);
+                    LogHelper.log.Error("！！！ 采集数据 失败！！！  详细：" + ex.Message);
+                    System.Threading.Thread.Sleep(20000);
+                    continue;
+                }
+            }
+
         }
 
         /// <summary>
@@ -52,7 +92,7 @@ namespace DabaiNA.NAServer
         /// </summary>
         /// <param name="deviceId">设备ID</param>
         /// <returns>Json数据</returns>
-        public static string QueryDeviceData(string deviceId)
+        public static string QueryDeviceInfo(string deviceId)
         {
             string result = Authentication.GetNorthAPIContent($"dm/v1.3.0/devices/{deviceId}?appId={Authentication.AppID}", "GET");
             return result;

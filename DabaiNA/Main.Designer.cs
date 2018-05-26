@@ -47,6 +47,8 @@
             this.btnModifyDeviceInfo = new System.Windows.Forms.Button();
             this.btnDeleteDevice = new System.Windows.Forms.Button();
             this.btnGetDevices = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowDepart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowRegion)).BeginInit();
@@ -71,18 +73,18 @@
             this.显示ToolStripMenuItem1,
             this.退出ToolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(117, 60);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 76);
             // 
             // 显示ToolStripMenuItem1
             // 
             this.显示ToolStripMenuItem1.Name = "显示ToolStripMenuItem1";
-            this.显示ToolStripMenuItem1.Size = new System.Drawing.Size(116, 28);
+            this.显示ToolStripMenuItem1.Size = new System.Drawing.Size(136, 36);
             this.显示ToolStripMenuItem1.Text = "显示";
             // 
             // 退出ToolStripMenuItem1
             // 
             this.退出ToolStripMenuItem1.Name = "退出ToolStripMenuItem1";
-            this.退出ToolStripMenuItem1.Size = new System.Drawing.Size(116, 28);
+            this.退出ToolStripMenuItem1.Size = new System.Drawing.Size(136, 36);
             this.退出ToolStripMenuItem1.Text = "退出";
             // 
             // dgvShowDepart
@@ -190,6 +192,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnStop);
+            this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.Controls.Add(this.btnRegisterDevice);
             this.groupBox1.Controls.Add(this.btnQueryDeviceStatus);
             this.groupBox1.Controls.Add(this.btnModifyDeviceInfo);
@@ -208,7 +212,7 @@
             // btnRegisterDevice
             // 
             this.btnRegisterDevice.BackColor = System.Drawing.SystemColors.Control;
-            this.btnRegisterDevice.Location = new System.Drawing.Point(104, 30);
+            this.btnRegisterDevice.Location = new System.Drawing.Point(485, 29);
             this.btnRegisterDevice.Margin = new System.Windows.Forms.Padding(4);
             this.btnRegisterDevice.Name = "btnRegisterDevice";
             this.btnRegisterDevice.Size = new System.Drawing.Size(99, 62);
@@ -220,7 +224,7 @@
             // btnQueryDeviceStatus
             // 
             this.btnQueryDeviceStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnQueryDeviceStatus.Location = new System.Drawing.Point(316, 29);
+            this.btnQueryDeviceStatus.Location = new System.Drawing.Point(656, 29);
             this.btnQueryDeviceStatus.Margin = new System.Windows.Forms.Padding(4);
             this.btnQueryDeviceStatus.Name = "btnQueryDeviceStatus";
             this.btnQueryDeviceStatus.Size = new System.Drawing.Size(132, 62);
@@ -232,7 +236,7 @@
             // btnModifyDeviceInfo
             // 
             this.btnModifyDeviceInfo.BackColor = System.Drawing.SystemColors.Info;
-            this.btnModifyDeviceInfo.Location = new System.Drawing.Point(726, 30);
+            this.btnModifyDeviceInfo.Location = new System.Drawing.Point(1001, 29);
             this.btnModifyDeviceInfo.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDeviceInfo.Name = "btnModifyDeviceInfo";
             this.btnModifyDeviceInfo.Size = new System.Drawing.Size(170, 62);
@@ -243,7 +247,7 @@
             // 
             // btnDeleteDevice
             // 
-            this.btnDeleteDevice.Location = new System.Drawing.Point(509, 29);
+            this.btnDeleteDevice.Location = new System.Drawing.Point(868, 29);
             this.btnDeleteDevice.Margin = new System.Windows.Forms.Padding(4);
             this.btnDeleteDevice.Name = "btnDeleteDevice";
             this.btnDeleteDevice.Size = new System.Drawing.Size(98, 62);
@@ -255,7 +259,7 @@
             // btnGetDevices
             // 
             this.btnGetDevices.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnGetDevices.Location = new System.Drawing.Point(956, 30);
+            this.btnGetDevices.Location = new System.Drawing.Point(1215, 29);
             this.btnGetDevices.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetDevices.Name = "btnGetDevices";
             this.btnGetDevices.Size = new System.Drawing.Size(170, 62);
@@ -263,6 +267,30 @@
             this.btnGetDevices.Text = "查询接入设备";
             this.btnGetDevices.UseVisualStyleBackColor = false;
             this.btnGetDevices.Click += new System.EventHandler(this.btnGetDevices_Click);
+            // 
+            // btnStart
+            // 
+            this.btnStart.BackColor = System.Drawing.SystemColors.Control;
+            this.btnStart.Location = new System.Drawing.Point(83, 29);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(4);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(99, 62);
+            this.btnStart.TabIndex = 19;
+            this.btnStart.Text = "启动服务";
+            this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.BackColor = System.Drawing.SystemColors.Control;
+            this.btnStop.Location = new System.Drawing.Point(224, 29);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(4);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(99, 62);
+            this.btnStop.TabIndex = 19;
+            this.btnStop.Text = "停止服务";
+            this.btnStop.UseVisualStyleBackColor = false;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // Main
             // 
@@ -306,6 +334,8 @@
         private System.Windows.Forms.Button btnModifyDeviceInfo;
         private System.Windows.Forms.Button btnDeleteDevice;
         private System.Windows.Forms.Button btnGetDevices;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnStart;
     }
 }
 

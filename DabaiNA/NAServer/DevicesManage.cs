@@ -12,6 +12,8 @@ namespace DabaiNA.NAServer
     {
         
 
+
+
         /// <summary>
         /// 注册直连设备
         /// </summary>

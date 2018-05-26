@@ -1,4 +1,5 @@
-﻿using DabaiNA.DAL;
+﻿using DabaiNA.Common;
+using DabaiNA.DAL;
 using DabaiNA.HWAuthentication;
 using DabaiNA.Modes;
 using DabaiNA.NAServer;
@@ -16,6 +17,7 @@ using System.Net.Security;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,55 +25,28 @@ namespace DabaiNA
 {
     public partial class Main : Form
     {
-        private static DevicesMode device = new DevicesMode();
-
-        internal static DevicesMode Device { get => device; set => device = value; }
+        
 
         public Main()
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// 显示软件运行日志
-        /// </summary>
-        /// <param name="info"></param>
+        //日志记录的事件委托声明
         private delegate void ShowLogEventHandler(string info);
-        public void ShowLog(string info)
-        {
-            if (this.ServerLog.InvokeRequired)
-            {
-                ShowLogEventHandler showLogHandler = new ShowLogEventHandler(this.ShowLog);
-                this.ServerLog.BeginInvoke(showLogHandler, info);
-            }
-            else
-            {
-                string s = "";
-                for (int i = 0; i < this.ServerLog.Lines.Length; i++)
-                {
-                    if (i > 200)
-                        break;
-                    s += ("\r\n" + this.ServerLog.Lines[i]);
-                }
-                this.ServerLog.Text = (DateTime.Now.ToString("yyy-MM-dd HH:mm:ss") + " >>>  " + info + s);
-            }
-        }
 
+        private static DevicesMode device = new DevicesMode();
+
+        internal static DevicesMode Device { get => device; set => device = value; }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            // 调用封装北向接口的功能 API
-            if (! Authentication.Login())
-                return;
-            ShowLog("scope="+Authentication.Auth.Scope +
-                    "  tokenType=" + Authentication.Auth.TokenType +
-                    "  expiresIn=" + Authentication.Auth.ExpiresIn +
-                    "  accessToken="+Authentication.Auth.AccessToken);
+            Runtime.ServerLog = this.ServerLog;
+            btnStart.Enabled = true;
+            btnStop.Enabled = false;
+            Runtime.m_IsRunning = false;
+            Runtime.m_IsRefreshToken = true;
 
-            //if (!Authentication.RefreshToken())
-            //    return;
-            //ShowLog(Authentication.NorthAccessToken);
-           
+            
 
         }
 
@@ -81,10 +56,10 @@ namespace DabaiNA
             string nodeId = "SH_Door_201805112145";
             string registerResult = DevicesManage.RegisterDirectlyConnectedDevice(nodeId);
             device = Newtonsoft.Json.JsonConvert.DeserializeObject<DevicesMode>(registerResult);
-            ShowLog("注册成功："+registerResult);
-            ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
+            Runtime.ShowLog("注册成功：" + registerResult);
+            Runtime.ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
 
-            Console.WriteLine("注册成功，设备ID："+device.deviceId);
+            Console.WriteLine("注册成功，设备ID：" + device.deviceId);
         }
 
         private void btnQueryDeviceStatus_Click(object sender, EventArgs e)
@@ -93,8 +68,8 @@ namespace DabaiNA
             string deviceId = "a823fc09-e119-4caa-af1b-f7f3f0eb4593";
             string deviceStatus = DevicesManage.QueryDeviceActivationStatus(deviceId);
 
-            ShowLog(deviceStatus);
-            ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
+            Runtime.ShowLog(deviceStatus);
+            Runtime.ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
         }
 
         private void btnDeleteDevice_Click(object sender, EventArgs e)
@@ -102,8 +77,8 @@ namespace DabaiNA
             //删除设备
             string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
             string deleteResult = DevicesManage.DeleteDirectlyConnectedDevice(deviceId);
-            ShowLog(deleteResult);
-            ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
+            Runtime.ShowLog(deleteResult);
+            Runtime.ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
         }
 
         private void btnModifyDeviceInfo_Click(object sender, EventArgs e)
@@ -122,13 +97,26 @@ namespace DabaiNA
 
             //查询一个设备历史数据
             string deviceId = "a823fc09-e119-4caa-af1b-f7f3f0eb4593";
-            string startTime = "20180521T134000Z";
+            string startTime = "20180521T114027Z";
             string endTime = "20180522T224044Z";
 
             string buildID = "10002000";
 
+            //将UTC时间 转换成 当前计算机所在时区的时间(即:北京时间)   
+            DateTime dateISO8602 = DateTime.ParseExact(startTime, "yyyyMMddTHHmmssZ",
+                                System.Globalization.CultureInfo.InvariantCulture);
+            Runtime.ShowLog("----- dateISO8602:" + dateISO8602.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            //TimeZone类表示时区，TimeZone.CurrentTimeZone方法：获取当前计算机的时区。
+            TimeZone tz = TimeZone.CurrentTimeZone;
+            DateTime dateTime = DateTime.Now;
+            //将当前计算机所在时区的时间(即:北京时间) 转换成UTC时间  
+            DateTime dtGMT = tz.ToUniversalTime(dateTime);
+
+            Runtime.ShowLog("----- dateISO8601:" + dtGMT.ToString("yyyyMMddTHHmmssZ"));
+
+
             string QueryData = DataCollection.QueryDeviceHistoryData(deviceId, deviceId, startTime);
-            ShowLog("queryDevices Data:" + QueryData);
 
             JObject jsonObj = JObject.Parse(QueryData);
             ////获取json元素
@@ -137,10 +125,10 @@ namespace DabaiNA
             //{
             //    ShowLog("queryDevices Data: key->" + item);
             //}
-            //ShowLog("queryDevices Data:" + jsonObj.ToString());
+            Runtime.ShowLog("queryDevices Data:" + jsonObj.ToString());
 
             int reslut = DataCollectionDAL.SaveData(buildID, jsonObj);
-            ShowLog("--------------------数据 存入数据库成功，总共：" + reslut+"条");
+            Runtime.ShowLog("--------------------数据 存入数据库成功，总共：" + reslut + "条");
 
             Dictionary<string, string> dataDic = new Dictionary<string, string>();
 
@@ -150,7 +138,7 @@ namespace DabaiNA
             {
                 //转化为JObject
                 JObject itemObj = JObject.Parse(jArray[i].ToString());
-                ShowLog("---------------------------------------");
+                Runtime.ShowLog("---------------------------------------");
                 string deviceId2 = itemObj["deviceId"].ToString();
                 string gatewayId = itemObj["gatewayId"].ToString();
                 string totalPower = itemObj["data"]["totalPower"].ToString();
@@ -158,25 +146,25 @@ namespace DabaiNA
                 string color = itemObj["data"]["color"].ToString();
                 string switchStatus = itemObj["data"]["switchStatus"].ToString();
                 string timestamp = itemObj["timestamp"].ToString();
-                ShowLog("queryDevices Data deviceId:" + deviceId2);
+                Runtime.ShowLog("queryDevices Data deviceId:" + deviceId2);
                 //ShowLog("queryDevices Data gatewayId:" + gatewayId);
                 //ShowLog("queryDevices Data totalPower:" + totalPower);
                 //ShowLog("queryDevices Data batteryVoltage:" + batteryVoltage);
                 //ShowLog("queryDevices Data color:" + color);
                 //ShowLog("queryDevices Data switchStatus:" + switchStatus);
-                ShowLog("queryDevices Data timestamp:" + timestamp);
+                Runtime.ShowLog("queryDevices Data timestamp:" + timestamp);
                 JObject itemObj2 = JObject.Parse(itemObj["data"].ToString());
                 IList<string> datakeys2 = itemObj2.Properties().Select(p => p.Name).ToList();
                 IList<string> dataValues2 = itemObj2.Properties().Select(p => p.Value.ToString()).ToList();
-                for (int j=0;j< datakeys2.Count;j++)
+                for (int j = 0; j < datakeys2.Count; j++)
                 {
-                    ShowLog("queryDevices Data: DataKey->" + datakeys2[j] + "  DataValue->" + dataValues2[j]);
+                    Runtime.ShowLog("queryDevices Data: DataKey->" + datakeys2[j] + "  DataValue->" + dataValues2[j]);
                     //dataDic.Add(datakeys2[j], dataValues2[j]);
                 }
 
                 foreach (var item in dataDic)
                 {
-                    ShowLog("queryDevices Data: DataKey->" + item.Key + "  DataValue->"+ item.Value);
+                    Runtime.ShowLog("queryDevices Data: DataKey->" + item.Key + "  DataValue->" + item.Value);
 
                 }
 
@@ -186,11 +174,6 @@ namespace DabaiNA
                 //}
             }
 
-                ShowLog("queryDevices Data:" + jsonObj["deviceDataHistoryDTOs"][0]["data"]);
-            //ShowLog("queryDevices Data:" + jObj);
-            ShowLog("queryDevices Data:" + jsonObj["gatewayId"]);
-            //ShowLog("queryDevices Data:" + jObj["deviceDataHistoryDTOs"]["data"]);
-            //ShowLog("queryDevices Data--totalPower:" + jObj["deviceDataHistoryDTOs"]["data"]["totalPower"]);
 
         }
 
@@ -204,27 +187,76 @@ namespace DabaiNA
             QueryDevicesMode queryDevices = new QueryDevicesMode();
             string buildID = "10002000";
             queryDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryDevicesMode>(QueryResult);
-            ShowLog("queryDevices buildID:" + queryDevices.buildID);
+            Runtime.ShowLog("queryDevices buildID:" + queryDevices.buildID);
 
-            ShowLog("queryDevices jObj:" + jObj.ToString());
+            Runtime.ShowLog("queryDevices jObj:" + jObj.ToString());
             foreach (var item in queryDevices.devices)
             {
-                ShowLog("---------------------------------------");
-                ShowLog("queryDevices buildID:" + queryDevices.buildID);
-                ShowLog("queryDevices devicesID:" + item.deviceId);
-                ShowLog("queryDevices gatewayId:" + item.gatewayId);
-                ShowLog("queryDevices nodeType:" + item.nodeType);
-                ShowLog("queryDevices createTime:" + item.createTime);
-                ShowLog("queryDevices lastModifiedTime:" + item.lastModifiedTime);
-                ShowLog("queryDevices nodeId:" + item.deviceInfo.nodeId);
-                ShowLog("queryDevices Name:" + item.deviceInfo.name);
-                ShowLog("queryDevices ProtocolType:" + item.deviceInfo.protocolType);
-                ShowLog("queryDevices Status:" + item.deviceInfo.status);
+                Runtime.ShowLog("---------------------------------------");
+                Runtime.ShowLog("queryDevices buildID:" + queryDevices.buildID);
+                Runtime.ShowLog("queryDevices devicesID:" + item.deviceId);
+                Runtime.ShowLog("queryDevices gatewayId:" + item.gatewayId);
+                Runtime.ShowLog("queryDevices nodeType:" + item.nodeType);
+                Runtime.ShowLog("queryDevices createTime:" + item.createTime);
+                Runtime.ShowLog("queryDevices lastModifiedTime:" + item.lastModifiedTime);
+                Runtime.ShowLog("queryDevices nodeId:" + item.deviceInfo.nodeId);
+                Runtime.ShowLog("queryDevices Name:" + item.deviceInfo.name);
+                Runtime.ShowLog("queryDevices ProtocolType:" + item.deviceInfo.protocolType);
+                Runtime.ShowLog("queryDevices Status:" + item.deviceInfo.status);
 
 
             }
             int reslut = DataCollectionDAL.SaveDevices(buildID, queryDevices);
-            ShowLog("--------------------设备 存入数据库：" + reslut);
+            Runtime.ShowLog("--------------------设备 存入数据库：" + reslut);
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnStart.Enabled = false;
+                btnStop.Enabled = true;
+                Runtime.m_IsRunning = true;
+
+                Thread GetNewTokenThread = new Thread(Authentication.getNewTokenFromAPI);
+                GetNewTokenThread.Start();
+
+                Thread DataCollectThread = new Thread(DataCollection.CollectFromAPI);
+                DataCollectThread.Start();
+                /*
+                // 调用封装北向接口的功能 API
+                if (!Authentication.Login())
+                {
+                    Runtime.ShowLog("！！！ 登录失败 ！！！");
+                    LogHelper.log.Error("！！！ 登录失败 ！！！");
+
+                }
+                else
+                {
+                    LogHelper.log.Info("*** 登录成功 *** accessToken：" + Authentication.Auth.AccessToken);
+                    Runtime.ShowLog("*** 登录成功 ***");
+
+                    btnStart.Enabled = false;
+                    btnStop.Enabled = true;
+                    Runtime.m_IsRunning = true;
+                }
+               */
+
+            }
+            catch(Exception ex)
+            {
+                Runtime.ShowLog("！！！ 启动服务失败！！！  详细：" + ex.Message);
+                LogHelper.log.Error("！！！ 启动服务失败！！！  详细：" + ex.Message);
+            }
+
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            btnStart.Enabled = true;
+            btnStop.Enabled = false;
+            Runtime.m_IsRunning = false;
+            Runtime.m_IsRefreshToken = false;
         }
     }
 }
