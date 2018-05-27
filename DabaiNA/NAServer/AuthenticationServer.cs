@@ -12,13 +12,16 @@ using System.Windows.Forms;
 
 namespace DabaiNA.HWAuthentication
 {
-    class Authentication
+    class AuthenticationServer
     {
         internal static string AppID = Config.GetValue("appID");
         internal static string AppSecret = Config.GetValue("appSecret");
         public static AuthorizationMode Auth = new AuthorizationMode();
         public static Int32 httpStatusCode = -1;
 
+        /// <summary>
+        /// 定时查询刷新Token
+        /// </summary>
         public static void getNewTokenFromAPI()
         {
             int loginNGCount = 0;
@@ -27,13 +30,13 @@ namespace DabaiNA.HWAuthentication
                 try
                 {
                     // 调用封装北向接口的功能 API
-                    if (!Authentication.Login())
+                    if (!AuthenticationServer.Login())
                     {
                         Runtime.ShowLog("！！！刷新 Token失败失败 ！！！,准备再次尝试登录...");
                         LogHelper.log.Error("！！！ 刷新 Token失败失败 ！！！,准备再次尝试登录...");
                     }
                     loginNGCount = 0;
-                    LogHelper.log.Info("*** 刷新 Token成功 *** accessToken：" + Authentication.Auth.AccessToken);
+                    LogHelper.log.Info("*** 刷新 Token成功 *** accessToken：" + AuthenticationServer.Auth.AccessToken);
                     Runtime.ShowLog("*** 刷新 Token成功 ***");
                    
                     //间隔20分钟刷新一次Token

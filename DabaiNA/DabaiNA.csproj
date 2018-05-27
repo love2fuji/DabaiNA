@@ -58,6 +58,12 @@
     <Compile Include="Common\SQLHelper.cs" />
     <Compile Include="DAL\DataCollectionDAL.cs" />
     <Compile Include="DAL\DeviceManageDAL.cs" />
+    <Compile Include="DevicesManageFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevicesManageFrm.Designer.cs">
+      <DependentUpon>DevicesManageFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modes\DeviceInfoMode.cs" />
     <Compile Include="Modes\DeviceServiceMode.cs" />
     <Compile Include="Modes\DevicesMode.cs" />
@@ -65,7 +71,7 @@
     <Compile Include="Modes\ModifyDeviceInfoMode.cs" />
     <Compile Include="Modes\QueryDevicesMode.cs" />
     <Compile Include="Modes\RegisterDeviceMode.cs" />
-    <Compile Include="NAServer\Authentication.cs" />
+    <Compile Include="NAServer\AuthenticationServer.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,10 +80,13 @@
     </Compile>
     <Compile Include="Modes\AuthorizationMode.cs" />
     <Compile Include="Modes\RefreshTokenMode.cs" />
-    <Compile Include="NAServer\DataCollection.cs" />
-    <Compile Include="NAServer\DevicesManage.cs" />
+    <Compile Include="NAServer\DataCollectionServer.cs" />
+    <Compile Include="NAServer\DevicesManageServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DevicesManageFrm.resx">
+      <DependentUpon>DevicesManageFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>

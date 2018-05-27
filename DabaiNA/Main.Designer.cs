@@ -42,13 +42,15 @@
             this.tpgDepart = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             this.btnRegisterDevice = new System.Windows.Forms.Button();
             this.btnQueryDeviceStatus = new System.Windows.Forms.Button();
             this.btnModifyDeviceInfo = new System.Windows.Forms.Button();
             this.btnDeleteDevice = new System.Windows.Forms.Button();
             this.btnGetDevices = new System.Windows.Forms.Button();
-            this.btnStart = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
+            this.cboxBiuldInfo = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowDepart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowRegion)).BeginInit();
@@ -192,6 +194,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.cboxBiuldInfo);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.Controls.Add(this.btnRegisterDevice);
@@ -209,64 +213,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "选项";
             // 
-            // btnRegisterDevice
+            // btnStop
             // 
-            this.btnRegisterDevice.BackColor = System.Drawing.SystemColors.Control;
-            this.btnRegisterDevice.Location = new System.Drawing.Point(485, 29);
-            this.btnRegisterDevice.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRegisterDevice.Name = "btnRegisterDevice";
-            this.btnRegisterDevice.Size = new System.Drawing.Size(99, 62);
-            this.btnRegisterDevice.TabIndex = 19;
-            this.btnRegisterDevice.Text = "注册设备";
-            this.btnRegisterDevice.UseVisualStyleBackColor = false;
-            this.btnRegisterDevice.Click += new System.EventHandler(this.btnRegisterDevice_Click);
-            // 
-            // btnQueryDeviceStatus
-            // 
-            this.btnQueryDeviceStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnQueryDeviceStatus.Location = new System.Drawing.Point(656, 29);
-            this.btnQueryDeviceStatus.Margin = new System.Windows.Forms.Padding(4);
-            this.btnQueryDeviceStatus.Name = "btnQueryDeviceStatus";
-            this.btnQueryDeviceStatus.Size = new System.Drawing.Size(132, 62);
-            this.btnQueryDeviceStatus.TabIndex = 17;
-            this.btnQueryDeviceStatus.Text = "查询设备激活状态";
-            this.btnQueryDeviceStatus.UseVisualStyleBackColor = false;
-            this.btnQueryDeviceStatus.Click += new System.EventHandler(this.btnQueryDeviceStatus_Click);
-            // 
-            // btnModifyDeviceInfo
-            // 
-            this.btnModifyDeviceInfo.BackColor = System.Drawing.SystemColors.Info;
-            this.btnModifyDeviceInfo.Location = new System.Drawing.Point(1001, 29);
-            this.btnModifyDeviceInfo.Margin = new System.Windows.Forms.Padding(4);
-            this.btnModifyDeviceInfo.Name = "btnModifyDeviceInfo";
-            this.btnModifyDeviceInfo.Size = new System.Drawing.Size(170, 62);
-            this.btnModifyDeviceInfo.TabIndex = 16;
-            this.btnModifyDeviceInfo.Text = "修改设备信息";
-            this.btnModifyDeviceInfo.UseVisualStyleBackColor = false;
-            this.btnModifyDeviceInfo.Click += new System.EventHandler(this.btnModifyDeviceInfo_Click);
-            // 
-            // btnDeleteDevice
-            // 
-            this.btnDeleteDevice.Location = new System.Drawing.Point(868, 29);
-            this.btnDeleteDevice.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDeleteDevice.Name = "btnDeleteDevice";
-            this.btnDeleteDevice.Size = new System.Drawing.Size(98, 62);
-            this.btnDeleteDevice.TabIndex = 16;
-            this.btnDeleteDevice.Text = "删除设备";
-            this.btnDeleteDevice.UseVisualStyleBackColor = true;
-            this.btnDeleteDevice.Click += new System.EventHandler(this.btnDeleteDevice_Click);
-            // 
-            // btnGetDevices
-            // 
-            this.btnGetDevices.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.btnGetDevices.Location = new System.Drawing.Point(1215, 29);
-            this.btnGetDevices.Margin = new System.Windows.Forms.Padding(4);
-            this.btnGetDevices.Name = "btnGetDevices";
-            this.btnGetDevices.Size = new System.Drawing.Size(170, 62);
-            this.btnGetDevices.TabIndex = 16;
-            this.btnGetDevices.Text = "查询接入设备";
-            this.btnGetDevices.UseVisualStyleBackColor = false;
-            this.btnGetDevices.Click += new System.EventHandler(this.btnGetDevices_Click);
+            this.btnStop.BackColor = System.Drawing.SystemColors.Control;
+            this.btnStop.Location = new System.Drawing.Point(224, 29);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(4);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(99, 62);
+            this.btnStop.TabIndex = 19;
+            this.btnStop.Text = "停止服务";
+            this.btnStop.UseVisualStyleBackColor = false;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnStart
             // 
@@ -280,17 +237,85 @@
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // btnStop
+            // btnRegisterDevice
             // 
-            this.btnStop.BackColor = System.Drawing.SystemColors.Control;
-            this.btnStop.Location = new System.Drawing.Point(224, 29);
-            this.btnStop.Margin = new System.Windows.Forms.Padding(4);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(99, 62);
-            this.btnStop.TabIndex = 19;
-            this.btnStop.Text = "停止服务";
-            this.btnStop.UseVisualStyleBackColor = false;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btnRegisterDevice.BackColor = System.Drawing.SystemColors.Control;
+            this.btnRegisterDevice.Location = new System.Drawing.Point(995, 29);
+            this.btnRegisterDevice.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRegisterDevice.Name = "btnRegisterDevice";
+            this.btnRegisterDevice.Size = new System.Drawing.Size(99, 62);
+            this.btnRegisterDevice.TabIndex = 19;
+            this.btnRegisterDevice.Text = "设备管理";
+            this.btnRegisterDevice.UseVisualStyleBackColor = false;
+            this.btnRegisterDevice.Click += new System.EventHandler(this.btnRegisterDevice_Click);
+            // 
+            // btnQueryDeviceStatus
+            // 
+            this.btnQueryDeviceStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnQueryDeviceStatus.Location = new System.Drawing.Point(1492, 29);
+            this.btnQueryDeviceStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.btnQueryDeviceStatus.Name = "btnQueryDeviceStatus";
+            this.btnQueryDeviceStatus.Size = new System.Drawing.Size(132, 62);
+            this.btnQueryDeviceStatus.TabIndex = 17;
+            this.btnQueryDeviceStatus.Text = "测试Test";
+            this.btnQueryDeviceStatus.UseVisualStyleBackColor = false;
+            this.btnQueryDeviceStatus.Click += new System.EventHandler(this.btnQueryDeviceStatus_Click);
+            // 
+            // btnModifyDeviceInfo
+            // 
+            this.btnModifyDeviceInfo.BackColor = System.Drawing.SystemColors.Info;
+            this.btnModifyDeviceInfo.Location = new System.Drawing.Point(1302, 29);
+            this.btnModifyDeviceInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnModifyDeviceInfo.Name = "btnModifyDeviceInfo";
+            this.btnModifyDeviceInfo.Size = new System.Drawing.Size(170, 62);
+            this.btnModifyDeviceInfo.TabIndex = 16;
+            this.btnModifyDeviceInfo.Text = "修改设备信息";
+            this.btnModifyDeviceInfo.UseVisualStyleBackColor = false;
+            this.btnModifyDeviceInfo.Click += new System.EventHandler(this.btnModifyDeviceInfo_Click);
+            // 
+            // btnDeleteDevice
+            // 
+            this.btnDeleteDevice.Location = new System.Drawing.Point(1177, 29);
+            this.btnDeleteDevice.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDeleteDevice.Name = "btnDeleteDevice";
+            this.btnDeleteDevice.Size = new System.Drawing.Size(98, 62);
+            this.btnDeleteDevice.TabIndex = 16;
+            this.btnDeleteDevice.Text = "删除设备";
+            this.btnDeleteDevice.UseVisualStyleBackColor = true;
+            this.btnDeleteDevice.Click += new System.EventHandler(this.btnDeleteDevice_Click);
+            // 
+            // btnGetDevices
+            // 
+            this.btnGetDevices.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnGetDevices.Location = new System.Drawing.Point(757, 29);
+            this.btnGetDevices.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGetDevices.Name = "btnGetDevices";
+            this.btnGetDevices.Size = new System.Drawing.Size(170, 62);
+            this.btnGetDevices.TabIndex = 16;
+            this.btnGetDevices.Text = "查询接入设备";
+            this.btnGetDevices.UseVisualStyleBackColor = false;
+            this.btnGetDevices.Click += new System.EventHandler(this.btnGetDevices_Click);
+            // 
+            // cboxBiuldInfo
+            // 
+            this.cboxBiuldInfo.FormattingEnabled = true;
+            this.cboxBiuldInfo.Location = new System.Drawing.Point(477, 65);
+            this.cboxBiuldInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.cboxBiuldInfo.Name = "cboxBiuldInfo";
+            this.cboxBiuldInfo.Size = new System.Drawing.Size(246, 26);
+            this.cboxBiuldInfo.TabIndex = 21;
+            this.cboxBiuldInfo.SelectedIndexChanged += new System.EventHandler(this.cboxBiuldInfo_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(484, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(239, 36);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "选择设备所属区域";
             // 
             // Main
             // 
@@ -311,6 +336,7 @@
             this.tpgDepart.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -336,6 +362,8 @@
         private System.Windows.Forms.Button btnGetDevices;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cboxBiuldInfo;
     }
 }
 

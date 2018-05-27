@@ -30,7 +30,7 @@ namespace DabaiNA.Common
                 string s = "";
                 for (int i = 0; i < Runtime.ServerLog.Lines.Length; i++)
                 {
-                    if (i > 200)
+                    if (i > 2000)
                         break;
                     s += ("\r\n" + Runtime.ServerLog.Lines[i]);
                 }

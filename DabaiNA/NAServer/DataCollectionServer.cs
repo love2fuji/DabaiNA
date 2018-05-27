@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace DabaiNA.NAServer
 {
-    class DataCollection
+    class DataCollectionServer
     {
 
-        public static void CollectFromAPI()
+        public static void DataCollectFromAPI()
         {
 
             System.Threading.Thread.Sleep(30000);
@@ -33,7 +33,7 @@ namespace DabaiNA.NAServer
                         LogHelper.log.Info("该设备 最后更新数据的时间为：" + startTime);
                         Runtime.ShowLog("-------- 该设备 最后更新数据的时间为：" + startTime);
 
-                        string queryData = DataCollection.QueryDeviceHistoryData(item, item, startTime);
+                        string queryData = DataCollectionServer.QueryDeviceHistoryData(item, item, startTime);
                         JObject jsonObj = JObject.Parse(queryData);
                         Runtime.ShowLog("queryDevices Data:" + jsonObj.ToString());
                         int totalData = Convert.ToInt32(jsonObj["totalCount"].ToString());
@@ -68,7 +68,7 @@ namespace DabaiNA.NAServer
         /// <returns></returns>
         public static string QueryDevice(long pageNo, long pageSize)
         {
-            string result = Authentication.GetNorthAPIContent($"dm/v1.3.0/devices?appId={Authentication.AppID}" +
+            string result = AuthenticationServer.GetNorthAPIContent($"dm/v1.3.0/devices?appId={AuthenticationServer.AppID}" +
                             $"&pageNo={pageNo}&pageSize={pageSize}", "GET");
             return result;
         }
@@ -82,7 +82,7 @@ namespace DabaiNA.NAServer
         /// <returns>Json数据</returns>
         public static string QueryDevice(long pageNo, long pageSize, string startTime)
         {
-            string result = Authentication.GetNorthAPIContent($"dm/v1.3.0/devices?appId={Authentication.AppID}" +
+            string result = AuthenticationServer.GetNorthAPIContent($"dm/v1.3.0/devices?appId={AuthenticationServer.AppID}" +
                             $"&pageNo={pageNo}&pageSize={pageSize}&startTime={startTime}", "GET");
             return result;
         }
@@ -94,7 +94,7 @@ namespace DabaiNA.NAServer
         /// <returns>Json数据</returns>
         public static string QueryDeviceInfo(string deviceId)
         {
-            string result = Authentication.GetNorthAPIContent($"dm/v1.3.0/devices/{deviceId}?appId={Authentication.AppID}", "GET");
+            string result = AuthenticationServer.GetNorthAPIContent($"dm/v1.3.0/devices/{deviceId}?appId={AuthenticationServer.AppID}", "GET");
             return result;
         }
 
@@ -106,7 +106,7 @@ namespace DabaiNA.NAServer
         /// <returns></returns>
         public static string QueryDeviceHistoryData(string deviceId, string gatewayId)
         {
-            string result = Authentication.GetNorthAPIContent($"data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
+            string result = AuthenticationServer.GetNorthAPIContent($"data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
                 $"&gatewayId={gatewayId}", "GET");
             return result;
         }
@@ -120,14 +120,14 @@ namespace DabaiNA.NAServer
         /// <returns></returns>
         public static string QueryDeviceHistoryData(string deviceId, string gatewayId, string startTime)
         {
-            string result = Authentication.GetNorthAPIContent($"data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
+            string result = AuthenticationServer.GetNorthAPIContent($"data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
                 $"&gatewayId={gatewayId}&startTime={startTime}", "GET");
             return result;
         }
 
         public static string QueryDeviceHistoryData(string deviceId, string gatewayId, string startTime, string endTime)
         {
-            string result = Authentication.GetNorthAPIContent($"data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
+            string result = AuthenticationServer.GetNorthAPIContent($"data/v1.1.0/deviceDataHistory?deviceId={deviceId}" +
                 $"&gatewayId={gatewayId}&startTime={startTime}&endTime={endTime}", "GET");
             return result;
         }

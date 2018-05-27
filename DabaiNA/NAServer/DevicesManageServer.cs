@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DabaiNA.NAServer
 {
-    class DevicesManage
+    class DevicesManageServer
     {
         
 
@@ -31,7 +31,7 @@ namespace DabaiNA.NAServer
             //格式化json
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(registerDevice, Newtonsoft.Json.Formatting.Indented);
 
-            string deviceString = Authentication.GetNorthAPIContent($"reg/v1.2.0/devices?appId={Authentication.AppID}", "POST", json);
+            string deviceString = AuthenticationServer.GetNorthAPIContent($"reg/v1.2.0/devices?appId={AuthenticationServer.AppID}", "POST", json);
             Console.WriteLine(value: " ----------Device_Register_Response:" + deviceString);
             return deviceString;
         }
@@ -40,13 +40,13 @@ namespace DabaiNA.NAServer
 
         public static string QueryDeviceActivationStatus(string deviceId)
         {
-            string result = Authentication.GetNorthAPIContent($"reg/v1.1.0/devices/{deviceId}?appId={Authentication.AppID}", "GET");
+            string result = AuthenticationServer.GetNorthAPIContent($"reg/v1.1.0/devices/{deviceId}?appId={AuthenticationServer.AppID}", "GET");
             return result;
         }
 
         public static string DeleteDirectlyConnectedDevice(string deviceId)
         {
-            string result = Authentication.GetNorthAPIContent($"dm/v1.1.0/devices/{deviceId}?appId={Authentication.AppID}&cascade=true", "DELETE");
+            string result = AuthenticationServer.GetNorthAPIContent($"dm/v1.1.0/devices/{deviceId}?appId={AuthenticationServer.AppID}&cascade=true", "DELETE");
             return result;
         }
 
@@ -54,7 +54,7 @@ namespace DabaiNA.NAServer
         {
             //格式化json
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(modifyDeviceInfoMode, Newtonsoft.Json.Formatting.Indented);
-            string result = Authentication.GetNorthAPIContent($"dm/v1.2.0/devices/{deviceId}?appId={Authentication.AppID}", "PUT", json);
+            string result = AuthenticationServer.GetNorthAPIContent($"dm/v1.2.0/devices/{deviceId}?appId={AuthenticationServer.AppID}", "PUT", json);
             return result;
         }
 
