@@ -21,13 +21,14 @@ namespace DabaiNA.NAServer
         /// <param name="timeout">设备验证有效期，超时未绑定则设备验证码失效
         ///                       0:永久有效（秒）</param>
         /// <returns></returns>
-        public static string RegisterDirectlyConnectedDevice(string nodeId)
+        public static string RegisterDirectlyConnectedDevice(string nodeId,string devicePSK)
         {
             RegisterDeviceMode registerDevice = new RegisterDeviceMode();
             //设置验证码与设备唯一标识码相同
             registerDevice.verifyCode = nodeId;
             registerDevice.nodeId = nodeId;
-            registerDevice.timeout = 3600 * 24;
+            registerDevice.psk = devicePSK;
+            registerDevice.timeout = 3600 * 24 * 7;
             //格式化json
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(registerDevice, Newtonsoft.Json.Formatting.Indented);
 

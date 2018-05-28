@@ -25,8 +25,6 @@ namespace DabaiNA
 {
     public partial class Main : Form
     {
-        
-
         public Main()
         {
             InitializeComponent();
@@ -55,12 +53,7 @@ namespace DabaiNA
 
         private void btnRegisterDevice_Click(object sender, EventArgs e)
         {
-            //注册直连设备
-            string nodeId = "SH_Door_201805112145";
-            string registerResult = DevicesManageServer.RegisterDirectlyConnectedDevice(nodeId);
-            device = Newtonsoft.Json.JsonConvert.DeserializeObject<DevicesMode>(registerResult);
-            Runtime.ShowLog("注册成功：" + registerResult);
-            Runtime.ShowLog("请求响应的状态码：" + AuthenticationServer.httpStatusCode);
+            
 
             Console.WriteLine("注册成功，设备ID：" + device.deviceId);
         }
@@ -180,6 +173,11 @@ namespace DabaiNA
 
         }
 
+        /// <summary>
+        /// 查询当前平台中的设备，并保持至数据库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGetDevices_Click(object sender, EventArgs e)
         {
             try
@@ -301,6 +299,19 @@ namespace DabaiNA
             string buildID = cboxBiuldInfo.GetItemText(cboxBiuldInfo.SelectedValue);
 
             Runtime.ShowLog("选择区域为：" + buildName + "  区域代码：" + buildID);
+        }
+
+        private void btnDeviceManage_Click(object sender, EventArgs e)
+        {
+            this.btnDeviceManage.Enabled = false;
+            if ((new DevicesManageFrm()).ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("数据中心配置保存成功！", "确认", MessageBoxButtons.OK, MessageBoxIcon.None);
+            }
+            else
+            {
+                this.btnDeviceManage.Enabled = true;
+            }
         }
     }
 }

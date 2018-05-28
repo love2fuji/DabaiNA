@@ -42,15 +42,15 @@
             this.tpgDepart = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cboxBiuldInfo = new System.Windows.Forms.ComboBox();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
-            this.btnRegisterDevice = new System.Windows.Forms.Button();
+            this.btnDeviceManage = new System.Windows.Forms.Button();
             this.btnQueryDeviceStatus = new System.Windows.Forms.Button();
             this.btnModifyDeviceInfo = new System.Windows.Forms.Button();
             this.btnDeleteDevice = new System.Windows.Forms.Button();
             this.btnGetDevices = new System.Windows.Forms.Button();
-            this.cboxBiuldInfo = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowDepart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowRegion)).BeginInit();
@@ -198,7 +198,7 @@
             this.groupBox1.Controls.Add(this.cboxBiuldInfo);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.btnStart);
-            this.groupBox1.Controls.Add(this.btnRegisterDevice);
+            this.groupBox1.Controls.Add(this.btnDeviceManage);
             this.groupBox1.Controls.Add(this.btnQueryDeviceStatus);
             this.groupBox1.Controls.Add(this.btnModifyDeviceInfo);
             this.groupBox1.Controls.Add(this.btnDeleteDevice);
@@ -212,6 +212,27 @@
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "选项";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(484, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(239, 36);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "选择设备所属区域";
+            // 
+            // cboxBiuldInfo
+            // 
+            this.cboxBiuldInfo.FormattingEnabled = true;
+            this.cboxBiuldInfo.Location = new System.Drawing.Point(477, 65);
+            this.cboxBiuldInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.cboxBiuldInfo.Name = "cboxBiuldInfo";
+            this.cboxBiuldInfo.Size = new System.Drawing.Size(246, 26);
+            this.cboxBiuldInfo.TabIndex = 21;
+            this.cboxBiuldInfo.SelectedIndexChanged += new System.EventHandler(this.cboxBiuldInfo_SelectedIndexChanged);
             // 
             // btnStop
             // 
@@ -237,17 +258,17 @@
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // btnRegisterDevice
+            // btnDeviceManage
             // 
-            this.btnRegisterDevice.BackColor = System.Drawing.SystemColors.Control;
-            this.btnRegisterDevice.Location = new System.Drawing.Point(995, 29);
-            this.btnRegisterDevice.Margin = new System.Windows.Forms.Padding(4);
-            this.btnRegisterDevice.Name = "btnRegisterDevice";
-            this.btnRegisterDevice.Size = new System.Drawing.Size(99, 62);
-            this.btnRegisterDevice.TabIndex = 19;
-            this.btnRegisterDevice.Text = "设备管理";
-            this.btnRegisterDevice.UseVisualStyleBackColor = false;
-            this.btnRegisterDevice.Click += new System.EventHandler(this.btnRegisterDevice_Click);
+            this.btnDeviceManage.BackColor = System.Drawing.SystemColors.Control;
+            this.btnDeviceManage.Location = new System.Drawing.Point(995, 29);
+            this.btnDeviceManage.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDeviceManage.Name = "btnDeviceManage";
+            this.btnDeviceManage.Size = new System.Drawing.Size(99, 62);
+            this.btnDeviceManage.TabIndex = 19;
+            this.btnDeviceManage.Text = "设备管理";
+            this.btnDeviceManage.UseVisualStyleBackColor = false;
+            this.btnDeviceManage.Click += new System.EventHandler(this.btnDeviceManage_Click);
             // 
             // btnQueryDeviceStatus
             // 
@@ -296,27 +317,6 @@
             this.btnGetDevices.UseVisualStyleBackColor = false;
             this.btnGetDevices.Click += new System.EventHandler(this.btnGetDevices_Click);
             // 
-            // cboxBiuldInfo
-            // 
-            this.cboxBiuldInfo.FormattingEnabled = true;
-            this.cboxBiuldInfo.Location = new System.Drawing.Point(477, 65);
-            this.cboxBiuldInfo.Margin = new System.Windows.Forms.Padding(4);
-            this.cboxBiuldInfo.Name = "cboxBiuldInfo";
-            this.cboxBiuldInfo.Size = new System.Drawing.Size(246, 26);
-            this.cboxBiuldInfo.TabIndex = 21;
-            this.cboxBiuldInfo.SelectedIndexChanged += new System.EventHandler(this.cboxBiuldInfo_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(484, 25);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(239, 36);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "选择设备所属区域";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -355,7 +355,7 @@
         private System.Windows.Forms.TabPage tpgDepart;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnRegisterDevice;
+        private System.Windows.Forms.Button btnDeviceManage;
         private System.Windows.Forms.Button btnQueryDeviceStatus;
         private System.Windows.Forms.Button btnModifyDeviceInfo;
         private System.Windows.Forms.Button btnDeleteDevice;

@@ -10,6 +10,7 @@ namespace DabaiNA.Modes
     {
         public string verifyCode { get; set; }
         public string nodeId { get; set; }
+        public string psk { get; set; }
         public Int32 timeout { get; set; }
     }
 }
