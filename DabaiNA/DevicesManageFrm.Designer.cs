@@ -44,21 +44,38 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBoxDeviceName2 = new System.Windows.Forms.TextBox();
+            this.textBoxManufacturerId = new System.Windows.Forms.TextBox();
+            this.btnModifyDevice = new System.Windows.Forms.Button();
+            this.textBoxManufacturerName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxProtocolType = new System.Windows.Forms.TextBox();
+            this.textBoxModel = new System.Windows.Forms.TextBox();
+            this.textBoxDeviceType = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboxDeviceID2 = new System.Windows.Forms.ComboBox();
+            this.cboxBiuldInfo2 = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBoxDeleteDeviceName = new System.Windows.Forms.TextBox();
+            this.btnDeleteDevice = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBoxDeleteDevice = new System.Windows.Forms.ComboBox();
+            this.cboxDeleteBiuldInfo = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxBuildID
@@ -181,7 +198,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 72);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(500, 755);
+            this.groupBox1.Size = new System.Drawing.Size(452, 755);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "注册设备";
@@ -209,55 +226,62 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.button4);
-            this.groupBox2.Controls.Add(this.textBox3);
+            this.groupBox2.Controls.Add(this.textBoxDeviceName2);
+            this.groupBox2.Controls.Add(this.textBoxManufacturerId);
+            this.groupBox2.Controls.Add(this.btnModifyDevice);
+            this.groupBox2.Controls.Add(this.textBoxManufacturerName);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.textBox4);
+            this.groupBox2.Controls.Add(this.textBoxProtocolType);
+            this.groupBox2.Controls.Add(this.textBoxModel);
+            this.groupBox2.Controls.Add(this.textBoxDeviceType);
             this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.cboxDeviceID2);
+            this.groupBox2.Controls.Add(this.cboxBiuldInfo2);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Location = new System.Drawing.Point(566, 72);
+            this.groupBox2.Location = new System.Drawing.Point(515, 72);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(500, 755);
+            this.groupBox2.Size = new System.Drawing.Size(446, 755);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "修改设备";
             // 
-            // textBox1
+            // textBoxDeviceName2
             // 
-            this.textBox1.Location = new System.Drawing.Point(171, 107);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(186, 28);
-            this.textBox1.TabIndex = 0;
+            this.textBoxDeviceName2.Location = new System.Drawing.Point(171, 146);
+            this.textBoxDeviceName2.Name = "textBoxDeviceName2";
+            this.textBoxDeviceName2.Size = new System.Drawing.Size(249, 28);
+            this.textBoxDeviceName2.TabIndex = 0;
             // 
-            // textBox2
+            // textBoxManufacturerId
             // 
-            this.textBox2.Location = new System.Drawing.Point(171, 168);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(186, 28);
-            this.textBox2.TabIndex = 0;
+            this.textBoxManufacturerId.Location = new System.Drawing.Point(171, 197);
+            this.textBoxManufacturerId.Name = "textBoxManufacturerId";
+            this.textBoxManufacturerId.Size = new System.Drawing.Size(249, 28);
+            this.textBoxManufacturerId.TabIndex = 0;
             // 
-            // button4
+            // btnModifyDevice
             // 
-            this.button4.Location = new System.Drawing.Point(171, 397);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(166, 41);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "修改设备信息";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnModifyDevice.Location = new System.Drawing.Point(171, 525);
+            this.btnModifyDevice.Name = "btnModifyDevice";
+            this.btnModifyDevice.Size = new System.Drawing.Size(166, 41);
+            this.btnModifyDevice.TabIndex = 3;
+            this.btnModifyDevice.Text = "修改设备信息";
+            this.btnModifyDevice.UseVisualStyleBackColor = true;
+            this.btnModifyDevice.Click += new System.EventHandler(this.btnModifyDevice_Click);
             // 
-            // textBox3
+            // textBoxManufacturerName
             // 
-            this.textBox3.Location = new System.Drawing.Point(171, 229);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(186, 28);
-            this.textBox3.TabIndex = 0;
+            this.textBoxManufacturerName.Location = new System.Drawing.Point(171, 248);
+            this.textBoxManufacturerName.Name = "textBoxManufacturerName";
+            this.textBoxManufacturerName.Size = new System.Drawing.Size(249, 28);
+            this.textBoxManufacturerName.TabIndex = 0;
             // 
             // label8
             // 
@@ -268,9 +292,9 @@
             this.label8.Location = new System.Drawing.Point(46, 606);
             this.label8.MaximumSize = new System.Drawing.Size(390, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(376, 84);
+            this.label8.Size = new System.Drawing.Size(388, 140);
             this.label8.TabIndex = 2;
-            this.label8.Text = "(注：设备注册成功后，须在一周内完成绑定，否则设备失效。\r\n绑定时所需的验证码与唯一标识码相同)";
+            this.label8.Text = "(注：1：一般仅修改设备名称，其他不用修改。\r\n2：设备厂家ID，设备类型，设备型号，通讯协议必须与Profile文件中内容一致,默认无需修改)";
             // 
             // label9
             // 
@@ -280,44 +304,95 @@
             this.label9.Size = new System.Drawing.Size(0, 18);
             this.label9.TabIndex = 2;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(67, 408);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 18);
+            this.label17.TabIndex = 2;
+            this.label17.Text = "通讯协议：";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(67, 357);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(98, 18);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "设备型号：";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(67, 306);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(98, 18);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "设备类型：";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(94, 291);
+            this.label10.Location = new System.Drawing.Point(67, 255);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(71, 18);
+            this.label10.Size = new System.Drawing.Size(98, 18);
             this.label10.TabIndex = 2;
-            this.label10.Text = "PSK码：";
+            this.label10.Text = "厂家名称：";
             // 
-            // textBox4
+            // textBoxProtocolType
             // 
-            this.textBox4.Location = new System.Drawing.Point(171, 290);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(186, 28);
-            this.textBox4.TabIndex = 0;
+            this.textBoxProtocolType.Location = new System.Drawing.Point(171, 401);
+            this.textBoxProtocolType.Name = "textBoxProtocolType";
+            this.textBoxProtocolType.Size = new System.Drawing.Size(249, 28);
+            this.textBoxProtocolType.TabIndex = 0;
+            this.textBoxProtocolType.Text = "CoAP";
+            // 
+            // textBoxModel
+            // 
+            this.textBoxModel.Location = new System.Drawing.Point(171, 350);
+            this.textBoxModel.Name = "textBoxModel";
+            this.textBoxModel.Size = new System.Drawing.Size(249, 28);
+            this.textBoxModel.TabIndex = 0;
+            // 
+            // textBoxDeviceType
+            // 
+            this.textBoxDeviceType.Location = new System.Drawing.Point(171, 299);
+            this.textBoxDeviceType.Name = "textBoxDeviceType";
+            this.textBoxDeviceType.Size = new System.Drawing.Size(249, 28);
+            this.textBoxDeviceType.TabIndex = 0;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(31, 231);
+            this.label11.Location = new System.Drawing.Point(85, 204);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(134, 18);
+            this.label11.Size = new System.Drawing.Size(80, 18);
             this.label11.TabIndex = 2;
-            this.label11.Text = "设备唯一标识：";
+            this.label11.Text = "厂家ID：";
             // 
-            // comboBox1
+            // cboxDeviceID2
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(171, 48);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(186, 26);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.cboxBiuldInfo_SelectedIndexChanged);
+            this.cboxDeviceID2.FormattingEnabled = true;
+            this.cboxDeviceID2.Location = new System.Drawing.Point(171, 97);
+            this.cboxDeviceID2.Name = "cboxDeviceID2";
+            this.cboxDeviceID2.Size = new System.Drawing.Size(249, 26);
+            this.cboxDeviceID2.TabIndex = 1;
+            this.cboxDeviceID2.SelectedIndexChanged += new System.EventHandler(this.cboxDeviceID2_SelectedIndexChanged);
+            // 
+            // cboxBiuldInfo2
+            // 
+            this.cboxBiuldInfo2.FormattingEnabled = true;
+            this.cboxBiuldInfo2.Location = new System.Drawing.Point(171, 48);
+            this.cboxBiuldInfo2.Name = "cboxBiuldInfo2";
+            this.cboxBiuldInfo2.Size = new System.Drawing.Size(249, 26);
+            this.cboxBiuldInfo2.TabIndex = 1;
+            this.cboxBiuldInfo2.SelectedIndexChanged += new System.EventHandler(this.cboxBiuldInfo2_SelectedIndexChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(67, 171);
+            this.label12.Location = new System.Drawing.Point(67, 153);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(98, 18);
             this.label12.TabIndex = 2;
@@ -335,17 +410,120 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(67, 111);
+            this.label14.Location = new System.Drawing.Point(85, 102);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(98, 18);
+            this.label14.Size = new System.Drawing.Size(80, 18);
             this.label14.TabIndex = 2;
-            this.label14.Text = "区域编码：";
+            this.label14.Text = "设备ID：";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBoxDeleteDeviceName);
+            this.groupBox3.Controls.Add(this.btnDeleteDevice);
+            this.groupBox3.Controls.Add(this.label18);
+            this.groupBox3.Controls.Add(this.label19);
+            this.groupBox3.Controls.Add(this.comboBoxDeleteDevice);
+            this.groupBox3.Controls.Add(this.cboxDeleteBiuldInfo);
+            this.groupBox3.Controls.Add(this.label25);
+            this.groupBox3.Controls.Add(this.label26);
+            this.groupBox3.Controls.Add(this.label27);
+            this.groupBox3.Location = new System.Drawing.Point(999, 72);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(446, 755);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "删除设备";
+            // 
+            // textBoxDeleteDeviceName
+            // 
+            this.textBoxDeleteDeviceName.Location = new System.Drawing.Point(171, 146);
+            this.textBoxDeleteDeviceName.Name = "textBoxDeleteDeviceName";
+            this.textBoxDeleteDeviceName.Size = new System.Drawing.Size(251, 28);
+            this.textBoxDeleteDeviceName.TabIndex = 0;
+            // 
+            // btnDeleteDevice
+            // 
+            this.btnDeleteDevice.Location = new System.Drawing.Point(171, 299);
+            this.btnDeleteDevice.Name = "btnDeleteDevice";
+            this.btnDeleteDevice.Size = new System.Drawing.Size(166, 41);
+            this.btnDeleteDevice.TabIndex = 3;
+            this.btnDeleteDevice.Text = "删除设备";
+            this.btnDeleteDevice.UseVisualStyleBackColor = true;
+            this.btnDeleteDevice.Click += new System.EventHandler(this.btnDeleteDevice_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.SystemColors.Control;
+            this.label18.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label18.ForeColor = System.Drawing.Color.Red;
+            this.label18.Location = new System.Drawing.Point(46, 606);
+            this.label18.MaximumSize = new System.Drawing.Size(390, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(376, 84);
+            this.label18.TabIndex = 2;
+            this.label18.Text = "(注：设备注册成功后，须在一周内完成绑定，否则设备失效。\r\n绑定时所需的验证码与唯一标识码相同)";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(67, 397);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(0, 18);
+            this.label19.TabIndex = 2;
+            // 
+            // comboBoxDeleteDevice
+            // 
+            this.comboBoxDeleteDevice.FormattingEnabled = true;
+            this.comboBoxDeleteDevice.Location = new System.Drawing.Point(171, 97);
+            this.comboBoxDeleteDevice.Name = "comboBoxDeleteDevice";
+            this.comboBoxDeleteDevice.Size = new System.Drawing.Size(251, 26);
+            this.comboBoxDeleteDevice.TabIndex = 1;
+            this.comboBoxDeleteDevice.SelectedIndexChanged += new System.EventHandler(this.comboBoxDeleteDevice_SelectedIndexChanged);
+            // 
+            // cboxDeleteBiuldInfo
+            // 
+            this.cboxDeleteBiuldInfo.FormattingEnabled = true;
+            this.cboxDeleteBiuldInfo.Location = new System.Drawing.Point(171, 48);
+            this.cboxDeleteBiuldInfo.Name = "cboxDeleteBiuldInfo";
+            this.cboxDeleteBiuldInfo.Size = new System.Drawing.Size(251, 26);
+            this.cboxDeleteBiuldInfo.TabIndex = 1;
+            this.cboxDeleteBiuldInfo.SelectedIndexChanged += new System.EventHandler(this.cboxDeleteBiuldInfo_SelectedIndexChanged);
+            this.cboxDeleteBiuldInfo.Click += new System.EventHandler(this.cboxDeleteBiuldInfo_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(67, 153);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(98, 18);
+            this.label25.TabIndex = 2;
+            this.label25.Text = "设备名称：";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(67, 51);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(98, 18);
+            this.label26.TabIndex = 2;
+            this.label26.Text = "区域名称：";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(85, 102);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(80, 18);
+            this.label27.TabIndex = 2;
+            this.label27.Text = "设备ID：";
             // 
             // DevicesManageFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1437, 861);
+            this.ClientSize = new System.Drawing.Size(1623, 882);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "DevicesManageFrm";
@@ -355,6 +533,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -377,18 +557,34 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBoxDeviceName2;
+        private System.Windows.Forms.TextBox textBoxManufacturerId;
+        private System.Windows.Forms.Button btnModifyDevice;
+        private System.Windows.Forms.TextBox textBoxManufacturerName;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxDeviceType;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboxBiuldInfo2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBoxProtocolType;
+        private System.Windows.Forms.TextBox textBoxModel;
+        private System.Windows.Forms.ComboBox cboxDeviceID2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox textBoxDeleteDeviceName;
+        private System.Windows.Forms.Button btnDeleteDevice;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBoxDeleteDevice;
+        private System.Windows.Forms.ComboBox cboxDeleteBiuldInfo;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
     }
 }

@@ -12,28 +12,63 @@ namespace DabaiNA.DAL
 {
     class DataCollectionDAL
     {
+        
+        
+        
         /// <summary>
         /// 查询平台中设备，并保存到数据库中
         /// </summary>
-        /// <param name="buildID">区域编码</param>
         /// <param name="queryDevicesMode">设备信息</param>
         /// <returns></returns>
-        public static int SaveDevices(string buildID,QueryDevicesMode queryDevicesMode)
+        public static int SaveDevices(QueryDevicesMode queryDevicesMode)
         {
             int reslut = 0;
             foreach (var item in queryDevicesMode.devices)
             {
 
                 //数据插入表：T_DC_DevicesInfo
-                string SQLString = @"IF EXISTS (SELECT 1 FROM T_DC_DevicesInfo WHERE F_DeviceId= '" + item.deviceId + @"'
-                                                            AND F_BuildID='" + buildID + @"') 
-                                            UPDATE T_DC_DevicesInfo SET F_GatewayId = '" + item.gatewayId + @"', F_Name = '" + item.deviceInfo.name +
-                                                @"', F_NodeType = '" + item.nodeType +
-                                                @"', F_LastModifiedTime = '" +item.lastModifiedTime + @"', F_NodeId = '" + item.deviceInfo.nodeId +
+                string SQLString = @"IF EXISTS (SELECT 1 FROM T_DC_DevicesInfo WHERE F_DeviceId= '" + item.deviceId + @"') 
+                                            UPDATE T_DC_DevicesInfo SET F_GatewayId = '" + item.gatewayId + @"', F_NodeType = '" + item.nodeType +
+                                                @"', F_LastModifiedTime = '" + item.lastModifiedTime + @"', F_NodeId = '" + item.deviceInfo.nodeId +
                                                 @"', F_Description = '" + item.deviceInfo.description + @"', F_ManufacturerName = '" + item.deviceInfo.manufacturerName +
                                                 @"', F_Mac = '" + item.deviceInfo.mac + @"', F_DeviceType = '" + item.deviceInfo.deviceType +
                                                 @"', F_ProtocolType = '" + item.deviceInfo.protocolType + @"', F_Status = '" + item.deviceInfo.status +
-                                                @"' WHERE F_DeviceId = '" + item.deviceId + @"' AND F_BuildID='" + buildID + @"'
+                                                @"' WHERE F_DeviceId = '" + item.deviceId + @"'
+                                        ELSE
+                                            INSERT INTO T_DC_DevicesInfo
+                                            (F_BuildID, F_DeviceId, F_GatewayId, F_NodeType, F_CreateTime, F_LastModifiedTime, F_NodeId, F_Name, 
+                                             F_Description, F_ManufacturerId, F_ManufacturerName, F_Mac, F_DeviceType, F_Model, F_ProtocolType, F_Status  ) VALUES
+                                               ( '10001000','" + item.deviceId + @"','" + item.gatewayId + @"','" + item.nodeType + @"','" + item.createTime +
+                                               @"','" + item.lastModifiedTime + @"','" + item.deviceInfo.nodeId + @"','" + item.deviceInfo.name + @"','" + item.deviceInfo.description +
+                                               @"','" + item.deviceInfo.manufacturerId + @"','" + item.deviceInfo.manufacturerName + @"','" + item.deviceInfo.mac + @"','" + item.deviceInfo.deviceType +
+                                               @"','" + item.deviceInfo.model + @"','" + item.deviceInfo.protocolType + @"','" + item.deviceInfo.status +
+                                               @"')";
+
+                reslut = reslut + SQLHelper.ExecuteSql(SQLString);
+            }
+            return reslut;
+        }
+
+        /// <summary>
+        /// 查询平台中设备，并保存到数据库中
+        /// </summary>
+        /// <param name="buildID">区域编码</param>
+        /// <param name="queryDevicesMode">设备信息</param>
+        /// <returns></returns>
+        public static int SaveDevices(string buildID, QueryDevicesMode queryDevicesMode)
+        {
+            int reslut = 0;
+            foreach (var item in queryDevicesMode.devices)
+            {
+
+                //数据插入表：T_DC_DevicesInfo
+                string SQLString = @"IF EXISTS (SELECT 1 FROM T_DC_DevicesInfo WHERE F_DeviceId= '" + item.deviceId + @"') 
+                                            UPDATE T_DC_DevicesInfo SET F_GatewayId = '" + item.gatewayId + @"', F_NodeType = '" + item.nodeType +
+                                                @"', F_LastModifiedTime = '" + item.lastModifiedTime + @"', F_NodeId = '" + item.deviceInfo.nodeId +
+                                                @"', F_Description = '" + item.deviceInfo.description + @"', F_ManufacturerName = '" + item.deviceInfo.manufacturerName +
+                                                @"', F_Mac = '" + item.deviceInfo.mac + @"', F_DeviceType = '" + item.deviceInfo.deviceType +
+                                                @"', F_ProtocolType = '" + item.deviceInfo.protocolType + @"', F_Status = '" + item.deviceInfo.status +
+                                                @"' WHERE F_DeviceId = '" + item.deviceId + @"'
                                         ELSE
                                             INSERT INTO T_DC_DevicesInfo
                                             (F_BuildID, F_DeviceId, F_GatewayId, F_NodeType, F_CreateTime, F_LastModifiedTime, F_NodeId, F_Name, 
@@ -41,10 +76,10 @@ namespace DabaiNA.DAL
                                                ( '" + buildID + @"','" + item.deviceId + @"','" + item.gatewayId + @"','" + item.nodeType + @"','" + item.createTime +
                                                @"','" + item.lastModifiedTime + @"','" + item.deviceInfo.nodeId + @"','" + item.deviceInfo.name + @"','" + item.deviceInfo.description +
                                                @"','" + item.deviceInfo.manufacturerId + @"','" + item.deviceInfo.manufacturerName + @"','" + item.deviceInfo.mac + @"','" + item.deviceInfo.deviceType +
-                                               @"','" + item.deviceInfo.model + @"','" + item.deviceInfo.protocolType + @"','" + item.deviceInfo.status + 
+                                               @"','" + item.deviceInfo.model + @"','" + item.deviceInfo.protocolType + @"','" + item.deviceInfo.status +
                                                @"')";
 
-                reslut = reslut +SQLHelper.ExecuteSql(SQLString);
+                reslut = reslut + SQLHelper.ExecuteSql(SQLString);
             }
             return reslut;
         }
@@ -91,7 +126,7 @@ namespace DabaiNA.DAL
             {
                 List<string> devicesList = new List<string>();
                 //查询表：T_DC_DevicesInfo
-                string SQLString = @"SELECT F_DeviceId FROM T_DC_DevicesInfo WHERE F_BuildID='"+ buildID + @"'
+                string SQLString = @"SELECT F_DeviceId FROM T_DC_DevicesInfo WHERE F_BuildID='" + buildID + @"'
                                     ";
                 DataTable dataTable = SQLHelper.GetDataTable(SQLString);
                 if (dataTable.Rows.Count > 0)
@@ -138,12 +173,13 @@ namespace DabaiNA.DAL
                     return dtGMT.ToString("yyyyMMddTHHmmssZ");
 
                 }
-                else {
+                else
+                {
                     //若设备没有最近的更新数据时间，则返回当前UTC时间
                     DateTime utcNow = DateTime.UtcNow.AddDays(-7);
                     return utcNow.ToString("yyyyMMddTHHmmssZ");
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -157,7 +193,7 @@ namespace DabaiNA.DAL
         /// <param name="buildID">区域编码</param>
         /// <param name="jsonObj">JSON对象</param>
         /// <returns></returns>
-        public static int SaveData( JObject jsonObj)
+        public static int SaveData(JObject jsonObj)
         {
             int reslut = 0;
 
@@ -170,10 +206,16 @@ namespace DabaiNA.DAL
                 JObject itemObj = JObject.Parse(jArray[i].ToString());
                 string deviceId = itemObj["deviceId"].ToString();
                 string gatewayId = itemObj["gatewayId"].ToString();
-                string totalPower = itemObj["data"]["totalPower"].ToString();
-                string batteryVoltage = itemObj["data"]["batteryVoltage"].ToString();
-                string color = itemObj["data"]["color"].ToString();
-                string switchStatus = itemObj["data"]["switchStatus"].ToString();
+                //string BatVoltage = itemObj["data"]["BatVoltage"].ToString();
+                //string Temp = itemObj["data"]["Temp"].ToString();
+                //string humidity = itemObj["data"]["humidity"].ToString();
+                //string lightValue = itemObj["data"]["lightValue"].ToString();
+                //string longitude = itemObj["data"]["longitude"].ToString();
+                //string latitude = itemObj["data"]["latitude"].ToString();
+                //string DI1 = itemObj["data"]["DI1"].ToString();
+                //string DI2 = itemObj["data"]["DI2"].ToString();
+
+
                 //将UTC时间 转换成 当前计算机所在时区的时间(即:北京时间)  
                 DateTime timestamp = DateTime.ParseExact(itemObj["timestamp"].ToString(), "yyyyMMddTHHmmssZ",
                                      System.Globalization.CultureInfo.CurrentCulture);
@@ -184,7 +226,7 @@ namespace DabaiNA.DAL
                 IList<string> dataValues = itemObj2.Properties().Select(p => p.Value.ToString()).ToList();
                 for (int j = 0; j < datakeys.Count; j++)
                 {
-                    Console.WriteLine("queryDevices Data: DataKey->" + datakeys[j] + "  DataValue->" + dataValues[j]);
+                    //Console.WriteLine("queryDevices Data: DataKey->" + datakeys[j] + "  DataValue->" + dataValues[j]);
                     //数据插入表：T_OV_MeterOrigValue
                     string SQLString = @"IF EXISTS (SELECT 1 FROM T_OV_MeterOrigValue WHERE F_DeviceId= '" + deviceId +
                                                             @"' AND F_TagName='" + datakeys[j] +
@@ -197,12 +239,12 @@ namespace DabaiNA.DAL
                                                         @"' 
                                             ELSE
                                                 INSERT INTO T_OV_MeterOrigValue
-                                                (F_DeviceId, F_GatewayId, F_TagName, F_Value, F_CalcTime, F_UpdataTime ) VALUES
-                                                   ( '" + deviceId + @"','" + gatewayId + @"','" + datakeys[j] + @"','" + dataValues[j] + @"','" + timestamp +
+                                                (F_DeviceId, F_TagName, F_Value, F_CalcTime, F_UpdataTime ) VALUES
+                                                   ( '" + deviceId + @"','" + datakeys[j] + @"','" + dataValues[j] + @"','" + timestamp +
                                                    @"', CONVERT(varchar(20), GETDATE(), 120)" +
                                                    @")";
 
-                     SQLHelper.ExecuteSql(SQLString);
+                    SQLHelper.ExecuteSql(SQLString);
                 }
             }
 
@@ -227,10 +269,10 @@ namespace DabaiNA.DAL
                 JObject itemObj = JObject.Parse(jArray[i].ToString());
                 string deviceId = itemObj["deviceId"].ToString();
                 string gatewayId = itemObj["gatewayId"].ToString();
-                string totalPower = itemObj["data"]["totalPower"].ToString();
-                string batteryVoltage = itemObj["data"]["batteryVoltage"].ToString();
-                string color = itemObj["data"]["color"].ToString();
-                string switchStatus = itemObj["data"]["switchStatus"].ToString();
+                //string totalPower = itemObj["data"]["totalPower"].ToString();
+                //string batteryVoltage = itemObj["data"]["batteryVoltage"].ToString();
+                //string color = itemObj["data"]["color"].ToString();
+                //string switchStatus = itemObj["data"]["switchStatus"].ToString();
                 //将UTC时间 转换成 当前计算机所在时区的时间(即:北京时间)  
                 DateTime timestamp = DateTime.ParseExact(itemObj["timestamp"].ToString(), "yyyyMMddTHHmmssZ",
                                System.Globalization.CultureInfo.CurrentCulture);
@@ -264,7 +306,7 @@ namespace DabaiNA.DAL
                     reslut = reslut + SQLHelper.ExecuteSql(SQLString);
                 }
             }
-           
+
             return reslut;
         }
 

@@ -70,106 +70,10 @@ namespace DabaiNA
 
         private void btnDeleteDevice_Click(object sender, EventArgs e)
         {
-            //删除设备
-            string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
-            string deleteResult = DevicesManageServer.DeleteDirectlyConnectedDevice(deviceId);
-            Runtime.ShowLog(deleteResult);
-            Runtime.ShowLog("请求响应的状态码：" + AuthenticationServer.httpStatusCode);
         }
 
         private void btnModifyDeviceInfo_Click(object sender, EventArgs e)
         {
-
-            //修改设备信息
-            //string deviceId = "49cf5244-8fe4-430d-950a-cdc6a2b13eb5";
-            //ModifyDeviceInfoMode modifyDeviceInfoMode = new ModifyDeviceInfoMode();
-
-            //string deleteResult = DevicesManage.ModifyDeviceInfo(device.deviceId, modifyDeviceInfoMode);
-            //ShowLog(deleteResult);
-            //ShowLog("请求响应的状态码：" + Authentication.httpStatusCode);
-
-            //ShowLog("queryDevices:" + queryDevices.totalCount);
-            //ShowLog("queryDevices:" + queryDevices.totalCount);
-
-            //查询一个设备历史数据
-            string deviceId = "a823fc09-e119-4caa-af1b-f7f3f0eb4593";
-            string startTime = "20180521T114027Z";
-            string endTime = "20180522T224044Z";
-
-            string buildID = "10002000";
-
-            //将UTC时间 转换成 当前计算机所在时区的时间(即:北京时间)   
-            DateTime dateISO8602 = DateTime.ParseExact(startTime, "yyyyMMddTHHmmssZ",
-                                System.Globalization.CultureInfo.InvariantCulture);
-            Runtime.ShowLog("----- dateISO8602:" + dateISO8602.ToString("yyyy-MM-dd HH:mm:ss"));
-
-            //TimeZone类表示时区，TimeZone.CurrentTimeZone方法：获取当前计算机的时区。
-            TimeZone tz = TimeZone.CurrentTimeZone;
-            DateTime dateTime = DateTime.Now;
-            //将当前计算机所在时区的时间(即:北京时间) 转换成UTC时间  
-            DateTime dtGMT = tz.ToUniversalTime(dateTime);
-
-            Runtime.ShowLog("----- dateISO8601:" + dtGMT.ToString("yyyyMMddTHHmmssZ"));
-
-
-            string QueryData = DataCollectionServer.QueryDeviceHistoryData(deviceId, deviceId, startTime);
-
-            JObject jsonObj = JObject.Parse(QueryData);
-            ////获取json元素
-            //IList<string> keys = jsonObj.Properties().Select(p => p.Name).ToList();
-            //foreach (var item in keys )
-            //{
-            //    ShowLog("queryDevices Data: key->" + item);
-            //}
-            Runtime.ShowLog("queryDevices Data:" + jsonObj.ToString());
-
-            int reslut = DataCollectionDAL.SaveData(buildID, jsonObj);
-            Runtime.ShowLog("--------------------数据 存入数据库成功，总共：" + reslut + "条");
-
-            Dictionary<string, string> dataDic = new Dictionary<string, string>();
-
-            JArray jArray = JArray.Parse(jsonObj["deviceDataHistoryDTOs"].ToString());
-
-            for (int i = 0; i < jArray.Count; i++)  //遍历JArray  
-            {
-                //转化为JObject
-                JObject itemObj = JObject.Parse(jArray[i].ToString());
-                Runtime.ShowLog("---------------------------------------");
-                string deviceId2 = itemObj["deviceId"].ToString();
-                string gatewayId = itemObj["gatewayId"].ToString();
-                string totalPower = itemObj["data"]["totalPower"].ToString();
-                string batteryVoltage = itemObj["data"]["batteryVoltage"].ToString();
-                string color = itemObj["data"]["color"].ToString();
-                string switchStatus = itemObj["data"]["switchStatus"].ToString();
-                string timestamp = itemObj["timestamp"].ToString();
-                Runtime.ShowLog("queryDevices Data deviceId:" + deviceId2);
-                //ShowLog("queryDevices Data gatewayId:" + gatewayId);
-                //ShowLog("queryDevices Data totalPower:" + totalPower);
-                //ShowLog("queryDevices Data batteryVoltage:" + batteryVoltage);
-                //ShowLog("queryDevices Data color:" + color);
-                //ShowLog("queryDevices Data switchStatus:" + switchStatus);
-                Runtime.ShowLog("queryDevices Data timestamp:" + timestamp);
-                JObject itemObj2 = JObject.Parse(itemObj["data"].ToString());
-                IList<string> datakeys2 = itemObj2.Properties().Select(p => p.Name).ToList();
-                IList<string> dataValues2 = itemObj2.Properties().Select(p => p.Value.ToString()).ToList();
-                for (int j = 0; j < datakeys2.Count; j++)
-                {
-                    Runtime.ShowLog("queryDevices Data: DataKey->" + datakeys2[j] + "  DataValue->" + dataValues2[j]);
-                    //dataDic.Add(datakeys2[j], dataValues2[j]);
-                }
-
-                foreach (var item in dataDic)
-                {
-                    Runtime.ShowLog("queryDevices Data: DataKey->" + item.Key + "  DataValue->" + item.Value);
-
-                }
-
-                //foreach (var item in dataValues2)
-                //{
-                //    ShowLog("queryDevices Data: DataValue->" + item);
-                //}
-            }
-
 
         }
 
@@ -214,24 +118,6 @@ namespace DabaiNA
                     Runtime.ShowLog(" 查询到的设备 存入数据库，总共：" + reslut + "设备");
                 }
                
-                /*
-                // 调用封装北向接口的功能 API
-                if (!Authentication.Login())
-                {
-                    Runtime.ShowLog("！！！ 登录失败 ！！！");
-                    LogHelper.log.Error("！！！ 登录失败 ！！！");
-
-                }
-                else
-                {
-                    LogHelper.log.Info("*** 登录成功 *** accessToken：" + Authentication.Auth.AccessToken);
-                    Runtime.ShowLog("*** 登录成功 ***");
-
-                    btnStart.Enabled = false;
-                    btnStop.Enabled = true;
-                    Runtime.m_IsRunning = true;
-                }
-               */
 
             }
             catch (Exception ex)
@@ -242,6 +128,9 @@ namespace DabaiNA
            
             
         }
+
+
+
 
         /// <summary>
         /// 启动服务 定时查询数据

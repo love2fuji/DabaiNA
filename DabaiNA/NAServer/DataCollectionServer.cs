@@ -53,7 +53,7 @@ namespace DabaiNA.NAServer
                 {
                     Runtime.ShowLog("！！！ 采集数据 失败！！！  详细：" + ex.Message);
                     LogHelper.log.Error("！！！ 采集数据 失败！！！  详细：" + ex.Message);
-                    System.Threading.Thread.Sleep(20000);
+                    System.Threading.Thread.Sleep(60000);
                     continue;
                 }
             }

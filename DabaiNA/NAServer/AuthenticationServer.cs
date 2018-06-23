@@ -1,5 +1,8 @@
 ﻿using DabaiNA.Common;
+using DabaiNA.DAL;
 using DabaiNA.Modes;
+using DabaiNA.NAServer;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,17 +33,45 @@ namespace DabaiNA.HWAuthentication
                 try
                 {
                     // 调用封装北向接口的功能 API
-                    if (!AuthenticationServer.Login())
+                    if (AuthenticationServer.Login())
+                    {
+                        
+                        loginNGCount = 0;
+                        LogHelper.log.Info("*** 刷新 Token成功 *** accessToken：" + AuthenticationServer.Auth.AccessToken);
+                        Runtime.ShowLog("*** 刷新 Token成功 ***");
+
+
+                        long pageNo = 0;
+                        long pageSize = 50;
+                        //获取当天0时0分0秒UTC时间（当天0时0分0秒），
+                        DateTime utcNow = DateTime.UtcNow.AddHours(-DateTime.UtcNow.Hour).AddMinutes(-DateTime.UtcNow.Minute).AddSeconds(-DateTime.UtcNow.Second);
+                        string QueryResult = DataCollectionServer.QueryDevice(pageNo, pageSize, utcNow.ToString("yyyyMMddTHHmmssZ"));
+
+                        JObject jObj = JObject.Parse(QueryResult);
+                        QueryDevicesMode queryDevices = new QueryDevicesMode();
+                        queryDevices = Newtonsoft.Json.JsonConvert.DeserializeObject<QueryDevicesMode>(QueryResult);
+                        LogHelper.log.Info("查询当前平台中设备返回内容:" + jObj.ToString());
+                        //Runtime.ShowLog("查询当前平台中设备:" + jObj.ToString());
+                        if (queryDevices.totalCount > 0)
+                        {
+                            int reslut = DataCollectionDAL.SaveDevices(queryDevices);
+                            LogHelper.log.Info(" 查询到的设备 存入数据库，总共：" + reslut + "设备");
+                            Runtime.ShowLog(" 查询到的设备 存入数据库，总共：" + reslut + "设备");
+                        }
+
+                        //间隔20分钟刷新一次Token
+                        System.Threading.Thread.Sleep(1200000);
+                    }
+                    else
                     {
                         Runtime.ShowLog("！！！刷新 Token失败失败 ！！！,准备再次尝试登录...");
                         LogHelper.log.Error("！！！ 刷新 Token失败失败 ！！！,准备再次尝试登录...");
+                        //登录失败，则1分钟刷新一次Token
+                        System.Threading.Thread.Sleep(60000);
                     }
-                    loginNGCount = 0;
-                    LogHelper.log.Info("*** 刷新 Token成功 *** accessToken：" + AuthenticationServer.Auth.AccessToken);
-                    Runtime.ShowLog("*** 刷新 Token成功 ***");
-                   
-                    //间隔20分钟刷新一次Token
-                    System.Threading.Thread.Sleep(1200000);
+                    
+
+
                     continue;
 
                 }
@@ -48,14 +79,7 @@ namespace DabaiNA.HWAuthentication
                 {
                     Runtime.ShowLog("！！！ 刷新 Token失败失败 ！！！,准备再次尝试登录...  详细：" + ex.Message);
                     LogHelper.log.Error("！！！ 刷新 Token失败失败 ！！！,准备再次尝试登录...  详细：" + ex.Message);
-                    loginNGCount++;
-                    
-                    //如果连续登录失败10次，
-                    if (loginNGCount >= 10)
-                    {
-                        loginNGCount = 0;
-                    }
-                    System.Threading.Thread.Sleep(15000);
+                    System.Threading.Thread.Sleep(30000);
                     continue;
                 }
             }
@@ -137,7 +161,7 @@ namespace DabaiNA.HWAuthentication
             {
                 HttpWebResponse lResponse = (HttpWebResponse)lRequest.GetResponse();
                 httpStatusCode = (int)lResponse.StatusCode;
-                StreamReader sr = new StreamReader(lResponse.GetResponseStream(), Encoding.Default);
+                StreamReader sr = new StreamReader(lResponse.GetResponseStream(), Encoding.UTF8);
                 lContent = sr.ReadToEnd();
                 lResponse.Close();
             }
@@ -197,7 +221,7 @@ namespace DabaiNA.HWAuthentication
 
                 HttpWebResponse lResponse = (HttpWebResponse)lRequest.GetResponse();
                 httpStatusCode = (int)lResponse.StatusCode;
-                StreamReader sr = new StreamReader(lResponse.GetResponseStream(), Encoding.Default);
+                StreamReader sr = new StreamReader(lResponse.GetResponseStream(), Encoding.UTF8);
                 lContent = sr.ReadToEnd();
                 lResponse.Close();
 

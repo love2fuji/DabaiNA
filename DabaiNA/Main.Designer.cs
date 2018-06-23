@@ -48,9 +48,8 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.btnDeviceManage = new System.Windows.Forms.Button();
             this.btnQueryDeviceStatus = new System.Windows.Forms.Button();
-            this.btnModifyDeviceInfo = new System.Windows.Forms.Button();
-            this.btnDeleteDevice = new System.Windows.Forms.Button();
             this.btnGetDevices = new System.Windows.Forms.Button();
+            this.btnModifyDeviceInfo = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowDepart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShowRegion)).BeginInit();
@@ -201,7 +200,6 @@
             this.groupBox1.Controls.Add(this.btnDeviceManage);
             this.groupBox1.Controls.Add(this.btnQueryDeviceStatus);
             this.groupBox1.Controls.Add(this.btnModifyDeviceInfo);
-            this.groupBox1.Controls.Add(this.btnDeleteDevice);
             this.groupBox1.Controls.Add(this.btnGetDevices);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -282,29 +280,6 @@
             this.btnQueryDeviceStatus.UseVisualStyleBackColor = false;
             this.btnQueryDeviceStatus.Click += new System.EventHandler(this.btnQueryDeviceStatus_Click);
             // 
-            // btnModifyDeviceInfo
-            // 
-            this.btnModifyDeviceInfo.BackColor = System.Drawing.SystemColors.Info;
-            this.btnModifyDeviceInfo.Location = new System.Drawing.Point(1302, 29);
-            this.btnModifyDeviceInfo.Margin = new System.Windows.Forms.Padding(4);
-            this.btnModifyDeviceInfo.Name = "btnModifyDeviceInfo";
-            this.btnModifyDeviceInfo.Size = new System.Drawing.Size(170, 62);
-            this.btnModifyDeviceInfo.TabIndex = 16;
-            this.btnModifyDeviceInfo.Text = "修改设备信息";
-            this.btnModifyDeviceInfo.UseVisualStyleBackColor = false;
-            this.btnModifyDeviceInfo.Click += new System.EventHandler(this.btnModifyDeviceInfo_Click);
-            // 
-            // btnDeleteDevice
-            // 
-            this.btnDeleteDevice.Location = new System.Drawing.Point(1177, 29);
-            this.btnDeleteDevice.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDeleteDevice.Name = "btnDeleteDevice";
-            this.btnDeleteDevice.Size = new System.Drawing.Size(98, 62);
-            this.btnDeleteDevice.TabIndex = 16;
-            this.btnDeleteDevice.Text = "删除设备";
-            this.btnDeleteDevice.UseVisualStyleBackColor = true;
-            this.btnDeleteDevice.Click += new System.EventHandler(this.btnDeleteDevice_Click);
-            // 
             // btnGetDevices
             // 
             this.btnGetDevices.BackColor = System.Drawing.Color.PaleTurquoise;
@@ -316,6 +291,18 @@
             this.btnGetDevices.Text = "查询接入设备";
             this.btnGetDevices.UseVisualStyleBackColor = false;
             this.btnGetDevices.Click += new System.EventHandler(this.btnGetDevices_Click);
+            // 
+            // btnModifyDeviceInfo
+            // 
+            this.btnModifyDeviceInfo.BackColor = System.Drawing.SystemColors.Info;
+            this.btnModifyDeviceInfo.Location = new System.Drawing.Point(1302, 29);
+            this.btnModifyDeviceInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.btnModifyDeviceInfo.Name = "btnModifyDeviceInfo";
+            this.btnModifyDeviceInfo.Size = new System.Drawing.Size(170, 62);
+            this.btnModifyDeviceInfo.TabIndex = 16;
+            this.btnModifyDeviceInfo.Text = "修改设备信息";
+            this.btnModifyDeviceInfo.UseVisualStyleBackColor = false;
+            this.btnModifyDeviceInfo.Click += new System.EventHandler(this.btnModifyDeviceInfo_Click);
             // 
             // Main
             // 
@@ -357,13 +344,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnDeviceManage;
         private System.Windows.Forms.Button btnQueryDeviceStatus;
-        private System.Windows.Forms.Button btnModifyDeviceInfo;
-        private System.Windows.Forms.Button btnDeleteDevice;
         private System.Windows.Forms.Button btnGetDevices;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboxBiuldInfo;
+        private System.Windows.Forms.Button btnModifyDeviceInfo;
     }
 }
 

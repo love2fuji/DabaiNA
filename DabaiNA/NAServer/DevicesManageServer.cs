@@ -44,13 +44,23 @@ namespace DabaiNA.NAServer
             string result = AuthenticationServer.GetNorthAPIContent($"reg/v1.1.0/devices/{deviceId}?appId={AuthenticationServer.AppID}", "GET");
             return result;
         }
-
+        /// <summary>
+        /// 删除直连设备
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
         public static string DeleteDirectlyConnectedDevice(string deviceId)
         {
             string result = AuthenticationServer.GetNorthAPIContent($"dm/v1.1.0/devices/{deviceId}?appId={AuthenticationServer.AppID}&cascade=true", "DELETE");
             return result;
         }
 
+        /// <summary>
+        /// 修改直连设备信息
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <param name="modifyDeviceInfoMode"></param>
+        /// <returns></returns>
         public static string ModifyDeviceInfo(string deviceId, ModifyDeviceInfoMode modifyDeviceInfoMode)
         {
             //格式化json
